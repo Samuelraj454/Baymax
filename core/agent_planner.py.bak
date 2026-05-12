@@ -1,0 +1,41 @@
+from dataclasses import dataclass
+from typing import List, Dict, Any, Optional
+
+@dataclass
+class Step:
+    tool: str
+    args: Dict[str, Any]
+    reason: str
+    status: str = "pending"
+    result: Optional[Any] = None
+
+@dataclass
+class Plan:
+    needs_tools: bool
+    steps: List[Step]
+    direct_response: Optional[str] = None
+    message: Optional[str] = None
+
+class AgentPlanner:
+    def build(self, llm_output: dict) -> Plan:
+        needs_tools = llm_output.get("needs_tools", False)
+        message = llm_output.get("message")
+        
+        if not needs_tools:
+            return Plan(
+                needs_tools=False,
+                steps=[],
+                direct_response=llm_output.get("response", "I'm not sure what to say."),
+                message=message
+            )
+        
+        steps_data = llm_output.get("steps", [])
+        steps = [
+            Step(
+                tool=s.get("tool"),
+                args=s.get("args", {}),
+                reason=s.get("reason", "")
+            ) for s in steps_data if "tool" in s
+        ]
+        
+        return Plan(needs_tools=True, steps=steps, direct_response=None, message=message)

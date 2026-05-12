@@ -1,0 +1,19 @@
+STATUS_ICON = { "done": "v", "failed": "x", "pending": "~" }
+
+class ResponseGenerator:
+    def format(self, plan) -> str:
+        if not plan.needs_tools:
+            return plan.direct_response
+            
+        output_parts = []
+        if plan.message:
+            output_parts.append(plan.message)
+            
+        for step in plan.steps:
+            icon = STATUS_ICON.get(step.status, "?")
+            if step.status == "done":
+                output_parts.append(f"{icon} {step.tool}: {step.result}")
+            else:
+                output_parts.append(f"{icon} {step.tool} failed: {step.result or 'Unknown error'}")
+                
+        return "\n".join(output_parts)

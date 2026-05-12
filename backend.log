@@ -1,0 +1,1356 @@
+INFO:     Will watch for changes in these directories: ['C:\\Users\\samue\\Baymax']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [30200] using WatchFiles
+INFO:     Started server process [22264]
+INFO:     Waiting for application startup.
+INFO:BAYMAX:[BAYMAX] All environment variables OK.
+INFO:BAYMAX:[BAYMAX] Backend online at http://localhost:8000
+INFO:     Application startup complete.
+INFO:     127.0.0.1:60319 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64147 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64147 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64147 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64147 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52795 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52795 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64147 - "GET /briefing/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52795 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64147 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52795 - "GET /briefing/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64147 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64147 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64147 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53235 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53235 - "OPTIONS /query HTTP/1.1" 200 OK
+2026-05-12 11:02:11.025 | INFO     | core.agent_loop:run:79 - BAYMAX: User=Samuel, Input=[TEXT MODE] hey baymax, Entities={'names': [], 'phones': [], 'emails': [], 'times': [], 'dates': [], 'amounts': [], 'resolved_times': []}
+INFO:httpx:HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-12 11:02:12.567 | DEBUG    | core.llm_core:think:37 - Primary LLM (llama-3.3-70b-versatile) Response: {
+  "needs_tools": false,
+   "response": "Samuel! What's up?"
+}
+2026-05-12 11:02:12.616 | INFO     | core.user_profile:set:61 - UserProfile update: last_active = 2026-05-12T05:32:12.604088
+INFO:     127.0.0.1:64147 - "POST /query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64147 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64757 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61617 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61617 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62537 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62537 - "GET /health HTTP/1.1" 200 OK
+2026-05-12 11:02:31.747 | INFO     | core.agent_loop:run:79 - BAYMAX: User=Samuel, Input=[TEXT MODE] open chrome and play senarito, Entities={'names': [], 'phones': [], 'emails': [], 'times': [], 'dates': [], 'amounts': [], 'resolved_times': []}
+INFO:httpx:HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-12 11:02:33.100 | DEBUG    | core.llm_core:think:37 - Primary LLM (llama-3.3-70b-versatile) Response: {
+  "needs_tools": true,
+   "message": "Opening Chrome and playing Senorita.",
+   "steps": [
+       {
+           "tool": "system",
+           "args": {
+               "action": "open_app",
+               "app": "chrome"
+           },
+           "reason": "open chrome"
+       },
+       {
+           "tool": "system",
+           "args": {
+               "action": "play_music",
+               "query": "Senorita"
+           },
+           "reason": "play song"
+       }
+   ]
+}
+2026-05-12 11:02:33.481 | INFO     | core.user_profile:set:61 - UserProfile update: most_used_tool = system
+INFO:     127.0.0.1:60915 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:httpx:HTTP Request: GET https://www.youtube.com/results?search_query=Senorita "HTTP/1.1 200 OK"
+2026-05-12 11:02:35.772 | INFO     | core.user_profile:set:61 - UserProfile update: most_used_tool = system
+2026-05-12 11:02:35.800 | INFO     | core.user_profile:set:61 - UserProfile update: last_active = 2026-05-12T05:32:35.789817
+INFO:     127.0.0.1:62537 - "POST /query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62537 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62537 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61704 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61704 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61704 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50802 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50802 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50802 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50802 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51720 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51720 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60380 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+2026-05-12 11:03:15.061 | INFO     | core.agent_loop:run:79 - BAYMAX: User=Samuel, Input=[TEXT MODE] play it in spotify, Entities={'names': [], 'phones': [], 'emails': [], 'times': [], 'dates': [], 'amounts': [], 'resolved_times': []}
+INFO:httpx:HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-12 11:03:16.668 | DEBUG    | core.llm_core:think:37 - Primary LLM (llama-3.3-70b-versatile) Response: {
+  "needs_tools": true,
+   "message": "Playing Senorita on Spotify.",
+   "steps": [
+       {
+           "tool": "system",
+           "args": {
+               "action": "play_music",
+               "query": "Senorita",
+               "platform": "spotify"
+           },
+           "reason": "play song on spotify"
+       }
+   ]
+}
+2026-05-12 11:03:16.753 | INFO     | core.user_profile:set:61 - UserProfile update: most_used_tool = system
+2026-05-12 11:03:16.779 | INFO     | core.user_profile:set:61 - UserProfile update: last_active = 2026-05-12T05:33:16.769174
+INFO:     127.0.0.1:60380 - "POST /query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60380 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60380 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49216 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49216 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49216 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64903 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64903 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64903 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64903 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51604 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51604 - "GET /health HTTP/1.1" 200 OK
+2026-05-12 11:03:53.058 | INFO     | core.agent_loop:run:79 - BAYMAX: User=Samuel, Input=[TEXT MODE] open antigravity, Entities={'names': [], 'phones': [], 'emails': [], 'times': [], 'dates': [], 'amounts': [], 'resolved_times': []}
+INFO:     127.0.0.1:59669 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:httpx:HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-12 11:03:55.087 | DEBUG    | core.llm_core:think:37 - Primary LLM (llama-3.3-70b-versatile) Response: {
+  "needs_tools": false,
+   "response": "I'm not aware of an app called Antigravity, can you tell me more?"
+}
+2026-05-12 11:03:55.133 | INFO     | core.user_profile:set:61 - UserProfile update: last_active = 2026-05-12T05:33:55.120437
+INFO:     127.0.0.1:51604 - "POST /query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51604 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51604 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51604 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51604 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53010 - "GET /health HTTP/1.1" 200 OK
+2026-05-12 11:04:13.057 | INFO     | core.agent_loop:run:79 - BAYMAX: User=Samuel, Input=[TEXT MODE] open visualcode, Entities={'names': [], 'phones': [], 'emails': [], 'times': [], 'dates': [], 'amounts': [], 'resolved_times': []}
+INFO:httpx:HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-12 11:04:14.439 | DEBUG    | core.llm_core:think:37 - Primary LLM (llama-3.3-70b-versatile) Response: {
+  "needs_tools": true,
+   "message": "Opening Visual Studio Code",
+   "steps": [
+       {
+           "tool": "system",
+           "args": {
+               "action": "open_app",
+               "app": "Visual Studio Code"
+           },
+           "reason": "open Visual Studio Code"
+       }
+   ]
+}
+INFO:     127.0.0.1:51604 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51604 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51604 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51604 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51604 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56697 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56697 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56697 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56697 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56697 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56697 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49929 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49929 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49929 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49929 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54099 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62632 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64648 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64648 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64648 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61332 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61332 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61332 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61332 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54892 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57143 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61702 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61702 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59186 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59186 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59186 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59186 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61989 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52599 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52599 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65185 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60250 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60250 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58121 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59453 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59453 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56550 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56550 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57866 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53187 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53187 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53187 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53541 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53541 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55055 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51254 - "GET /health HTTP/1.1" 200 OK
+2026-05-12 11:07:01.461 | INFO     | core.agent_loop:run:79 - BAYMAX: User=Samuel, Input=[TEXT MODE] open this pc, Entities={'names': [], 'phones': [], 'emails': [], 'times': [], 'dates': [], 'amounts': [], 'resolved_times': []}
+INFO:httpx:HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-12 11:07:02.977 | DEBUG    | core.llm_core:think:37 - Primary LLM (llama-3.3-70b-versatile) Response: {
+  "needs_tools": true,
+   "message": "Opening This PC.",
+   "steps": [
+       {
+           "tool": "system",
+           "args": {
+               "action": "open_app",
+               "app": "explorer"
+           },
+           "reason": "open this pc"
+       }
+   ]
+}
+2026-05-12 11:07:03.083 | INFO     | core.user_profile:set:61 - UserProfile update: most_used_tool = system
+2026-05-12 11:07:03.115 | INFO     | core.user_profile:set:61 - UserProfile update: last_active = 2026-05-12T05:37:03.103015
+INFO:     127.0.0.1:51254 - "POST /query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51254 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51254 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62995 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55701 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55701 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51055 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58011 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58011 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58011 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58011 - "GET /health HTTP/1.1" 200 OK
+2026-05-12 11:07:44.265 | INFO     | core.agent_loop:run:79 - BAYMAX: User=Samuel, Input=[TEXT MODE] open settings , Entities={'names': [], 'phones': [], 'emails': [], 'times': [], 'dates': [], 'amounts': [], 'resolved_times': []}
+INFO:     127.0.0.1:58697 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:httpx:HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-12 11:07:45.886 | DEBUG    | core.llm_core:think:37 - Primary LLM (llama-3.3-70b-versatile) Response: {
+  "needs_tools": true,
+   "message": "Opening settings now.",
+   "steps": [
+       {
+           "tool": "system",
+           "args": {
+               "action": "open_app",
+               "app": "settings"
+           },
+           "reason": "open settings"
+       }
+   ]
+}
+INFO:     127.0.0.1:58697 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58697 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58697 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58697 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52743 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52743 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52743 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52743 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65033 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65033 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65033 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51939 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51939 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51939 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51939 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51939 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58171 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58171 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58171 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58171 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58712 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58712 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58712 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49823 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49823 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49823 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49823 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53885 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53885 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53885 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51312 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51312 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51312 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58133 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58133 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64277 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64277 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64277 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62514 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62514 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62514 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62514 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53182 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53182 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53182 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55756 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55756 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55756 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55756 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61602 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49319 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49319 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61108 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61108 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61108 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61108 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50308 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64658 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51940 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51940 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61894 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62678 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62678 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62678 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61442 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55274 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55274 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55158 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56823 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56823 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62545 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62545 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55740 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54353 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54353 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53331 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53331 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53331 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53331 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61454 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64095 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64095 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50228 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50228 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50228 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50228 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50228 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54794 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54794 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60443 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60443 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60443 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63737 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63737 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63737 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54656 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54656 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54656 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54656 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54656 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54656 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65149 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65149 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65149 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65149 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65149 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62062 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62062 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62062 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62062 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63068 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63068 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63068 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63068 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62366 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62366 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62366 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62088 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51720 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51720 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59417 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61980 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61980 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49315 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49315 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62766 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50062 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50062 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57289 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57289 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57289 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61444 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61444 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61444 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52617 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63978 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63978 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52342 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52342 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64809 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59282 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59282 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59282 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61711 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51941 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51941 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61791 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61791 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61791 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61791 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61791 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61791 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51628 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63426 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63426 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50306 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50306 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50306 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50306 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50306 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50306 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49339 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54496 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54496 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64976 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64976 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64976 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64976 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64976 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64976 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53910 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53910 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52160 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57293 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57293 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57293 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60490 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60490 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60490 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60490 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60490 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60490 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55622 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55622 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61237 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54438 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54438 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54438 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52219 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52219 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52219 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52219 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52219 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52219 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58493 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58493 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58493 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58493 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58493 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58493 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62301 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62301 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62301 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62301 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62301 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62301 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58664 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58664 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58664 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58664 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58664 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58664 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60520 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60520 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49316 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52498 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52498 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60538 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60538 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60538 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60538 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59993 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49805 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49805 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50922 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59832 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59832 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59832 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59832 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59832 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59832 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59832 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59832 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59832 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49910 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49910 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49910 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49910 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49910 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49910 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52358 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52358 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60430 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61548 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61548 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61548 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62509 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62509 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62509 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62509 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60675 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60675 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60675 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60675 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60675 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56790 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56790 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56790 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56790 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56790 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56790 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52295 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52295 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52295 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52295 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52295 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52295 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49225 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49225 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49225 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49225 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49225 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49225 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64768 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64729 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64729 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54589 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54589 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54589 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54589 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54589 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54589 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63223 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51385 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51385 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62240 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62240 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52997 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52307 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52307 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52307 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49770 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49770 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49770 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49770 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49770 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49770 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60892 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64893 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64893 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53003 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53003 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53003 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53003 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53003 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53003 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62553 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62553 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62553 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62553 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62553 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62553 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60201 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60201 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60201 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60201 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60201 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60201 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65190 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65190 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65190 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65190 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65190 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65190 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51254 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57909 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57909 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56235 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56235 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56235 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56235 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56235 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57325 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57325 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62225 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62225 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62225 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62225 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62225 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63382 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63382 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63382 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63382 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63382 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63382 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62514 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62514 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62514 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62514 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62514 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62514 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59001 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59001 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59001 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59001 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59001 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59001 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61819 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61819 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61819 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61819 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61819 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61819 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65117 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65117 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65117 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65117 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65117 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65117 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56943 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56943 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56943 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56943 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56943 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56943 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52898 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52898 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52898 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52898 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52898 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52898 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56864 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56864 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55871 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63821 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63821 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63821 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52959 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52959 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52959 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52959 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52959 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52959 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63749 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63749 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63749 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63749 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63749 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63749 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55583 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55583 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55583 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55583 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55583 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55583 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56918 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56918 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56918 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56918 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56918 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56918 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55219 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55219 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55219 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55219 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55219 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55219 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57904 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57904 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57904 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57904 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57904 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57904 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56471 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57663 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57663 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52450 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52450 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52450 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52450 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52450 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52450 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60079 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60079 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51948 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55919 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55919 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55919 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49213 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53456 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53456 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54605 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54605 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54605 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54605 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54605 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54605 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51743 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51743 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51743 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51743 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51743 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51743 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63853 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60149 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60149 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61480 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61480 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54045 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55364 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55364 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55364 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56415 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56415 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56415 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56415 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56415 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56415 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56415 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56415 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56415 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64807 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64807 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64807 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64807 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64807 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64807 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62785 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62785 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62785 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62785 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51807 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51807 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51807 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51807 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62918 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62918 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62918 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62918 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65350 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65350 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65350 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65350 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65350 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65350 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57672 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57672 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57672 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57672 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57672 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57672 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52093 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52093 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58934 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57481 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57481 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57481 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49979 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49979 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49979 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49979 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49979 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49979 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62114 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62114 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62114 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62114 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62114 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62114 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51726 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55403 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55403 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50155 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50155 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50155 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50155 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50155 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50155 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59217 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59217 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59217 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59217 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59217 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59217 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65083 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65083 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65083 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65083 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54669 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54669 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54669 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54669 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54669 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64495 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64495 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64495 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64495 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64495 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64495 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56332 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62415 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62415 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54669 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58246 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58246 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54368 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54368 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54368 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54368 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54368 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54368 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54086 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54086 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54086 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54086 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54086 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54086 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52566 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52566 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52566 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52566 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52566 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52566 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59276 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59276 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59276 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59276 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59276 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59276 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60060 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60060 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60060 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60060 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60060 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49274 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49274 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49274 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55986 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55986 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55986 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55986 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52804 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52804 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52804 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52804 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50872 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50872 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50872 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50872 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50872 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54311 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50713 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50713 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51549 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51549 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51549 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51549 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51549 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51549 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59472 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59472 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59472 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59472 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59472 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59472 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59760 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59760 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59760 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59760 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59760 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59760 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55473 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55473 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55473 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55473 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55473 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55473 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50060 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50060 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50060 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50060 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50060 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50060 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49698 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49698 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49698 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49698 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49698 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49698 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54572 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54572 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54572 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54572 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54572 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54572 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54849 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54849 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54849 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54849 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54849 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54849 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56519 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56519 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56519 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56519 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56519 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56519 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54742 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54742 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54742 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54742 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54742 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54742 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62147 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62147 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62147 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62147 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62147 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62147 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57934 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57934 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62554 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64742 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64742 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64742 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51823 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57852 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57852 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57852 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57852 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57852 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57852 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64639 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64639 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64639 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64639 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64639 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64639 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52619 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52619 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52619 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52619 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52619 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52619 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59195 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59195 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59195 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59195 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59195 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59195 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59195 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59195 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59195 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50113 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50113 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50113 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50113 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50113 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50113 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53682 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53682 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53682 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53682 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53682 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53682 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53682 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53682 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53682 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62623 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62623 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55708 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61886 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61886 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61886 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49682 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49682 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49682 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49682 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49682 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50551 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49682 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49682 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49682 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49682 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63561 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63561 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63561 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63561 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63561 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64280 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64280 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54856 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50451 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50451 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50451 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58558 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58558 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58558 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58558 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58558 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58558 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58558 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58558 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58558 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63142 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63142 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63142 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63142 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63142 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63142 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54875 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54875 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54875 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54875 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54875 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54875 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57753 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57753 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57753 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57753 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57753 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57753 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50619 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59488 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59488 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64636 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64636 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64636 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64636 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64636 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64636 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54683 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54683 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54683 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54683 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54683 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54683 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58652 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51094 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51094 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51904 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51904 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51904 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51904 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51904 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51904 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57477 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57477 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57477 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57477 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57477 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57477 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51243 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51243 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51243 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51243 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51243 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51243 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56942 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56942 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56942 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56942 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56942 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56942 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54109 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54109 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56998 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51758 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51758 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51758 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50811 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50811 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50811 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50811 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50811 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50811 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56608 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56608 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56608 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56608 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56608 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56608 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56608 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56608 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56608 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61522 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61522 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61522 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61522 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61522 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61522 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52010 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52010 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52010 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52010 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52010 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52010 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58612 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58612 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58612 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58612 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58612 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58612 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53528 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53528 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53528 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53528 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64574 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64574 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64574 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64574 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64574 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59346 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59346 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59346 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59346 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59346 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59346 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60884 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60884 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60884 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60884 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60884 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60884 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51526 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51526 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51526 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51526 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51526 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51526 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58318 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58318 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58318 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58318 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58318 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58318 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52608 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52608 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52608 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52608 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52608 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56074 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56074 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56074 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56074 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50060 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50060 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50060 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50060 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50060 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50060 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64002 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64002 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64002 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64002 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64002 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64002 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61538 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61538 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61538 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61538 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61538 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61538 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62223 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62223 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62223 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62223 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62223 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62223 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62223 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62223 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62223 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52953 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63026 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63026 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55560 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55560 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55560 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55560 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55180 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55180 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55180 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59887 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59887 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57177 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53063 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53063 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50458 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50458 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50458 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50458 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50458 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50458 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52249 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52249 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52249 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52249 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52249 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52249 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51000 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51000 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51000 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51000 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51000 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61095 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61095 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61095 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61095 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57342 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57342 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57342 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57342 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57342 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57342 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53685 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53685 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53685 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53685 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53685 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53685 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58154 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58154 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62020 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59339 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59339 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59339 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55584 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55584 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55584 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55584 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55584 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55584 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55961 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55961 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55961 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55961 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55961 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50655 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50655 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50655 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50655 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59413 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59413 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59413 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59413 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59413 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59413 - "OPTIONS /query HTTP/1.1" 200 OK
+2026-05-12 12:04:49.229 | INFO     | core.agent_loop:run:79 - BAYMAX: User=Samuel, Input=[TEXT MODE] hey baymax, Entities={'names': [], 'phones': [], 'emails': [], 'times': [], 'dates': [], 'amounts': [], 'resolved_times': []}
+INFO:     127.0.0.1:59413 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59294 - "GET /health HTTP/1.1" 200 OK
+INFO:httpx:HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-12 12:04:51.227 | DEBUG    | core.llm_core:think:37 - Primary LLM (llama-3.3-70b-versatile) Response: {
+  "needs_tools": false,
+   "response": "Yeah? What do you need?"
+}
+2026-05-12 12:04:51.269 | INFO     | core.user_profile:set:61 - UserProfile update: last_active = 2026-05-12T06:34:51.249321
+INFO:     127.0.0.1:57094 - "POST /query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57094 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57094 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57094 - "GET /health HTTP/1.1" 200 OK
+2026-05-12 12:05:02.667 | INFO     | core.agent_loop:run:79 - BAYMAX: User=Samuel, Input=[TEXT MODE] open powerpoint, Entities={'names': [], 'phones': [], 'emails': [], 'times': [], 'dates': [], 'amounts': [], 'resolved_times': []}
+INFO:httpx:HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-12 12:05:04.470 | DEBUG    | core.llm_core:think:37 - Primary LLM (llama-3.3-70b-versatile) Response: {
+  "needs_tools": true,
+   "message": "Opening PowerPoint",
+   "steps": [
+       {
+           "tool": "system",
+           "args": {
+               "action": "open_app",
+               "app": "powerpoint"
+           },
+           "reason": "open powerpoint"
+       }
+   ]
+}
+INFO:     127.0.0.1:51935 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52898 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61482 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61482 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61482 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61482 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61482 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61482 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59685 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51726 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51726 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50172 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50172 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50172 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50172 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50172 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50172 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60937 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60937 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60937 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60937 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60937 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60937 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60197 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60197 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60197 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60197 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60197 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60197 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59271 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64797 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64797 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54723 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54723 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54723 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54723 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54723 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54723 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54914 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54914 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54914 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54914 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54914 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54914 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64264 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64264 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64264 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64264 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64264 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64264 - "GET /logs/ui_session HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55902 - "GET /health HTTP/1.1" 200 OK
+The system cannot find the file powerpoint.
+2026-05-12 12:08:00.978 | INFO     | core.user_profile:set:61 - UserProfile update: most_used_tool = system
+2026-05-12 12:08:01.000 | INFO     | core.user_profile:set:61 - UserProfile update: last_active = 2026-05-12T06:38:00.991351
+The system cannot find the file settings.
+2026-05-12 12:08:02.895 | INFO     | core.user_profile:set:61 - UserProfile update: most_used_tool = system
+2026-05-12 12:08:02.917 | INFO     | core.user_profile:set:61 - UserProfile update: last_active = 2026-05-12T06:38:02.908208
+The system cannot find the file Visual.
+2026-05-12 12:08:03.727 | INFO     | core.user_profile:set:61 - UserProfile update: most_used_tool = system
+2026-05-12 12:08:03.753 | INFO     | core.user_profile:set:61 - UserProfile update: last_active = 2026-05-12T06:38:03.744493

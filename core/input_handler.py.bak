@@ -1,0 +1,14 @@
+from dataclasses import dataclass
+
+@dataclass
+class UserInput:
+    raw: str
+    source: str
+    session_id: str
+
+class InputHandler:
+    def process(self, raw: str, source: str = "cli", session_id: str = "default") -> UserInput:
+        cleaned = raw.strip()
+        if not cleaned:
+            raise ValueError("Input cannot be empty")
+        return UserInput(raw=cleaned, source=source, session_id=session_id)
