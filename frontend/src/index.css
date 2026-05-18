@@ -153,3 +153,76 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Premium Responsive Mobile optimization (phones and small tablets) */
+@media (max-width: 768px) {
+  body {
+    overflow: hidden !important; /* Lock vertical scrolling on the page to prevent bounce scrolling */
+    height: 100vh !important;
+    position: fixed;
+    width: 100%;
+  }
+
+  .app-container {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 1fr !important;
+    gap: 0 !important;
+    padding: 12px !important;
+    height: 100vh !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  /* Hide Sidebars on Mobile to focus 100% of the screen on the active conversation */
+  .sidebar-panel {
+    display: none !important;
+  }
+
+  .main-panel {
+    height: 100% !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* Optimize Orb container height on mobile */
+  .main-panel > div:first-of-type {
+    height: 120px !important; /* Scale down the Orb size for small screens */
+    margin-top: 48px !important; /* Add space below status indicator */
+  }
+  
+  .main-panel > div:nth-of-type(2) {
+    height: 24px !important; /* Scale down interim transcript container height */
+  }
+
+  /* Floating Settings button adjustment for easy thumb access */
+  button.glass-panel {
+    bottom: 16px !important;
+    right: 16px !important;
+    padding: 12px !important;
+    background: var(--bg-panel) !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important;
+  }
+
+  /* Adjust top bar layout */
+  .listening-dot {
+    width: 6px !important;
+    height: 6px !important;
+  }
+
+  /* Header mic status alignment for notch/safe area on mobile */
+  .app-container > div:first-of-type {
+    top: 12px !important;
+    left: 12px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+  }
+
+  /* Make sure the chat layout fits viewport exactly */
+  .h-screen-content {
+    height: 100% !important;
+  }
+}
+

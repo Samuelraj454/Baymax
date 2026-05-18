@@ -132,12 +132,12 @@ function App() {
       </button>
 
       {/* Left Panel: Monitoring & History */}
-      <div className="flex-col h-screen-content" style={{ overflow: 'hidden' }}>
+      <div className="flex-col h-screen-content sidebar-panel telemetry-sidebar" style={{ overflow: 'hidden' }}>
         <TelemetryPanel sessionId={sessionId} health={systemHealth} />
       </div>
 
       {/* Center Panel: Interaction & Core */}
-      <div className="flex-col h-screen-content" style={{ gap: '24px', overflow: 'hidden', alignItems: 'center' }}>
+      <div className="flex-col h-screen-content main-panel" style={{ gap: '24px', overflow: 'hidden', alignItems: 'center' }}>
         <div 
           onClick={() => { if (!isListening) activateBaymax(); }}
           style={{ 
@@ -194,7 +194,7 @@ function App() {
 
 
       {/* Right Panel: Intelligence Hub */}
-      <div className="flex-col h-screen-content" style={{ overflow: 'hidden' }}>
+      <div className="flex-col h-screen-content sidebar-panel action-sidebar" style={{ overflow: 'hidden' }}>
         <ActionPanel sessionId={sessionId} health={systemHealth} />
       </div>
     </div>
