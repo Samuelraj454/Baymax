@@ -88,12 +88,59 @@ class SystemTool(BaseTool):
         
         try:
             if action == "open_app" and app:
+                app_clean = app.lower().strip()
                 if sys_os == "Windows":
-                    os.system(f"start {app}")
+                    # Translation map for common names to Windows executable commands
+                    win_apps = {
+                        "calculator": "calc",
+                        "calc": "calc",
+                        "notepad": "notepad",
+                        "paint": "mspaint",
+                        "mspaint": "mspaint",
+                        "word": "winword",
+                        "excel": "excel",
+                        "powerpoint": "powerpnt",
+                        "chrome": "chrome",
+                        "edge": "msedge",
+                        "settings": "ms-settings:",
+                        "explorer": "explorer",
+                        "file explorer": "explorer",
+                        "task manager": "taskmgr",
+                        "cmd": "cmd",
+                        "powershell": "powershell",
+                        "browser": "chrome",
+                        "control panel": "control"
+                    }
+                    target = win_apps.get(app_clean, app_clean)
+                    os.system(f"start {target}")
                 elif sys_os == "Darwin":
-                    os.system(f"open -a '{app}'")
+                    # Translation map for macOS applications
+                    mac_apps = {
+                        "calculator": "Calculator",
+                        "notepad": "TextEdit",
+                        "paint": "Preview",
+                        "settings": "System Preferences",
+                        "explorer": "Finder",
+                        "file explorer": "Finder",
+                        "terminal": "Terminal",
+                        "browser": "Safari",
+                        "chrome": "Google Chrome"
+                    }
+                    target = mac_apps.get(app_clean, app)
+                    os.system(f"open -a '{target}'")
                 else:
-                    subprocess.Popen([app])
+                    # Translation map for Linux
+                    linux_apps = {
+                        "calculator": "gnome-calculator",
+                        "notepad": "gedit",
+                        "paint": "gimp",
+                        "settings": "gnome-control-center",
+                        "explorer": "nautilus",
+                        "file explorer": "nautilus",
+                        "browser": "firefox"
+                    }
+                    target = linux_apps.get(app_clean, app_clean)
+                    subprocess.Popen([target])
                 return ToolResult(success=True, output=f"Opened {app}")
                 
             elif action == "web_search" and query:
