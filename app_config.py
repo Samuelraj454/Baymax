@@ -16,7 +16,7 @@ LOG_PATH        = "logs/baymax.log"
 
 # Identity
 SYSTEM_NAME     = "BAYMAX"
-SYSTEM_VERSION  = "10.0"
+SYSTEM_VERSION  = "11.0"
 
 # Voice defaults
 DEFAULT_VOICE        = "jarvis"

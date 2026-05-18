@@ -357,7 +357,7 @@ export default function SettingsModal({ isOpen, onClose, sessionId, onVoiceSetti
             {/* System Info */}
             <div className="flex-col" style={{ gap: '8px', background: 'rgba(255,255,255,0.03)', padding: '20px', borderRadius: '12px', fontSize: '12px', color: 'rgba(255,255,255,0.6)' }}>
               <h3 className="flex items-center text-cyan" style={{ gap: '8px', margin: 0, fontSize: '14px', marginBottom: '8px' }}><Info size={16}/> System Info</h3>
-              <div className="flex justify-between"><span>BAYMAX Version:</span> <span>10.0</span></div>
+              <div className="flex justify-between"><span>BAYMAX Version:</span> <span>11.0</span></div>
               <div className="flex justify-between"><span>Last Active:</span> <span>{profile.last_active || 'Never'}</span></div>
               <div className="flex justify-between"><span>Most Used Tool:</span> <span>{profile.most_used_tool || 'None'}</span></div>
             </div>

@@ -40,7 +40,7 @@ def open_browser():
     print("[BAYMAX] Say 'Hey BAYMAX' to begin.")
 
 if __name__ == "__main__":
-    print("[BAYMAX] v10.0 — Starting up...")
+    print("[BAYMAX] v11.0 — Starting up...")
     print("[BAYMAX] Say 'Hey BAYMAX' when ready")
     check_env()
     start_backend()

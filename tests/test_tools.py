@@ -7,7 +7,7 @@ from tools.system_tool import SystemTool
 
 def test_reminder_valid():
     tool = ReminderTool()
-    res = tool.run(message="Drink water", time="2026-05-05T12:00:00Z")
+    res = tool.run(message="Drink water", time="2030-05-05T12:00:00Z")
     assert res.success == True
     assert "Drink water" in res.output
 

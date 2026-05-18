@@ -43,7 +43,7 @@ async def lifespan(app: FastAPI):
     yield
     logger.info("[BAYMAX] Shutting down.")
 
-app = FastAPI(title="BAYMAX API", version="10.0", lifespan=lifespan)
+app = FastAPI(title="BAYMAX API", version="11.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -160,7 +160,7 @@ async def health_check():
     return {
         "status": "online",
         "system": "BAYMAX",
-        "version": "10.0",
+        "version": "11.0",
         "uptime_seconds": int(time.time() - start_time)
     }
 

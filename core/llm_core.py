@@ -42,32 +42,36 @@ class LLMCore:
         is_task = any(w in user_input.lower() for w in task_words)
         temp = 0.1 if is_task else 0.75
 
+        # Dynamic task routing: route simple/tool commands to ultra-fast 8B model for sub-200ms responses
+        target_model = self.fallback_model if is_task else self.primary_model
+
         # Strategy 1 & 2: Primary call with temperature control
-        raw_response = await self._call_llm(messages, self.primary_model, temperature=temp)
-        logger.debug(f"Primary LLM ({self.primary_model}) Response: {raw_response}")
+        raw_response = await self._call_llm(messages, target_model, temperature=temp)
+        logger.debug(f"Primary LLM ({target_model}) Response: {raw_response}")
         
         # Strategy 3: Extraction Waterfall
         data = self._extract_json(raw_response)
         
         if data:
             return data
-
-        # Strategy 4: Two-model fallback
-        logger.warning(f"JSON Parse failed on {self.primary_model}. Retrying with {self.fallback_model}...")
         
-        # If raw_response is empty, don't include it in history
-        retry_messages = [{"role": "system", "content": system_with_profile}]
-        for m in self.memory[-5:]:
-             retry_messages.append(m)
-        retry_messages.append({"role": "user", "content": user_input})
-        retry_messages.append({"role": "user", "content": "Respond ONLY with the JSON object. No explanation."})
-        
-        raw_retry = await self._call_llm(retry_messages, self.fallback_model, temperature=0.0)
-        logger.debug(f"Fallback LLM ({self.fallback_model}) Response: {raw_retry}")
-        data = self._extract_json(raw_retry)
-        
-        if data:
-            return data
+        # Strategy 4: Two-model fallback (only if we didn't already try the fallback model)
+        if target_model != self.fallback_model:
+            logger.warning(f"JSON Parse or rate limit occurred on {target_model}. Instantly retrying with fallback model ({self.fallback_model})...")
+            
+            # If raw_response is empty, don't include it in history
+            retry_messages = [{"role": "system", "content": system_with_profile}]
+            for m in self.memory[-5:]:
+                 retry_messages.append(m)
+            retry_messages.append({"role": "user", "content": user_input})
+            retry_messages.append({"role": "user", "content": "Respond ONLY with the JSON object. No explanation."})
+            
+            raw_retry = await self._call_llm(retry_messages, self.fallback_model, temperature=0.0)
+            logger.debug(f"Fallback LLM ({self.fallback_model}) Response: {raw_retry}")
+            data = self._extract_json(raw_retry)
+            
+            if data:
+                return data
             
         # Strategy 5: Failure fallback
         return {"needs_tools": False, "response": "I'm having trouble formatting my thoughts as JSON right now. Let's try again."}
@@ -83,7 +87,7 @@ class LLMCore:
             return json.loads(text)
         except:
             pass
-
+ 
         # Try 2: Handle Markdown blocks
         try:
             if "```" in text:
@@ -93,7 +97,7 @@ class LLMCore:
                     return json.loads(json_match.group(1))
         except:
             pass
-
+ 
         # Try 3: Regex for outermost braces
         try:
             match = re.search(r'(\{.*\})', text, re.DOTALL)
@@ -127,7 +131,12 @@ class LLMCore:
                         return response.json()["choices"][0]["message"]["content"]
                     
                     if response.status_code == 429:
-                        wait = (attempt + 1) * 5
+                        # Fail-fast on the primary 70B model to trigger fallback immediately without waiting
+                        if model == self.primary_model:
+                            logger.warning(f"Primary model ({model}) rate limited (429). Bypassing wait to fallback instantly.")
+                            return ""
+                        
+                        wait = (attempt + 1) * 2
                         logger.warning(f"Rate limited (429). Retrying in {wait}s...")
                         await asyncio.sleep(wait)
                         continue

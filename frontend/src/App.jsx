@@ -11,10 +11,10 @@ import { API_BASE_URL } from './config';
 function App() {
   const [orbState, setOrbState] = useState('idle'); // idle, activated, listening, processing, speaking, error
   const [status, setStatus] = useState('READY'); // READY, LISTENING, THINKING, SPEAKING, ERROR
-  const [systemHealth, setSystemHealth] = useState({ online: false, version: '7.0' });
+  const [systemHealth, setSystemHealth] = useState({ online: false, version: '11.0' });
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: "Hello. I am BAYMAX v7.0. Say 'Hey Baymax' to begin." }
+    { role: 'assistant', content: "Hello. I am BAYMAX v11.0. Say 'Hey Baymax' to begin." }
   ]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -69,7 +69,7 @@ function App() {
         const data = await res.json();
         setSystemHealth({ online: data.status === 'online', ...data });
       } catch (err) {
-        setSystemHealth({ online: false, version: '7.0' });
+        setSystemHealth({ online: false, version: '11.0' });
       }
     };
     checkHealth();

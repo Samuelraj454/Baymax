@@ -37,7 +37,7 @@ class SpeechEngine:
         }
 
         self.task_failed = {
-            "email":     "I couldn't send that email. {error}",
+            "email":     "Couldn't send that email. {error}",
             "whatsapp":  "WhatsApp message didn't go through. {error}",
             "sms":       "Text message failed. {error}",
             "reminder":  "I couldn't set that reminder. {error}",
@@ -77,6 +77,10 @@ class SpeechEngine:
         
         # Merge args and result for formatting
         data = {**args, "result": formatted_result}
+        if "phone" not in data and "name" in data:
+            data["phone"] = data["name"]
+        if "to" not in data and "name" in data:
+            data["to"] = data["name"]
         try:
             return template.format(**data)
         except KeyError:

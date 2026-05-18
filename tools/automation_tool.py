@@ -1,6 +1,5 @@
 from typing import Dict, Any
 from .base_tool import BaseTool, ToolResult
-from core.automation import automation_engine
 from loguru import logger
 import asyncio
 
@@ -12,6 +11,7 @@ class AutomationTool(BaseTool):
     description = "Use this to schedule a reminder or a simple background task to execute after a given delay in seconds."
 
     def run(self, **params) -> ToolResult:
+        from core.automation import automation_engine
         delay_seconds = params.get("delay_seconds", 0)
         message = params.get("message", "Task executed.")
         

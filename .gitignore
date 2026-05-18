@@ -5,3 +5,4 @@ __pycache__/
 logs/
 memory/baymax.db
 memory/chroma/
+*.log
