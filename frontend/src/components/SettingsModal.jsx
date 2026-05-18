@@ -21,7 +21,7 @@ const COUNTRIES = [
   { code: "AE",  name: "UAE 🇦🇪" },
 ]
 
-export default function SettingsModal({ isOpen, onClose, sessionId }) {
+export default function SettingsModal({ isOpen, onClose, sessionId, onVoiceSettingsChange }) {
   const [profile, setProfile] = useState({});
   const [voiceSettings, setVoiceSettings] = useState({});
   const [availableVoices, setAvailableVoices] = useState({});
@@ -109,6 +109,9 @@ export default function SettingsModal({ isOpen, onClose, sessionId }) {
           headers: { 'Content-Type': 'application/json' },
           body:    JSON.stringify(updated)
         });
+        if (onVoiceSettingsChange) {
+          onVoiceSettingsChange();
+        }
       } catch (e) {
         console.error("Error saving voice settings", e);
       }
@@ -161,7 +164,7 @@ export default function SettingsModal({ isOpen, onClose, sessionId }) {
             <Settings className="text-cyan" size={28} />
             <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: 'white', margin: 0 }}>BAYMAX Settings</h2>
           </div>
-          <button onClick={() => { onClose(); window.location.reload(); }} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', padding: '8px' }}>
+          <button onClick={() => { onClose(); }} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', padding: '8px' }}>
             <X size={24} />
           </button>
         </div>

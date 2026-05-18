@@ -38,7 +38,8 @@ function App() {
     startWakeWordListener,
     toggleConversationMode,
     activateBaymax,
-    processCommand
+    processCommand,
+    refreshVoiceSettings
   } = useVoice(
     null,
     setOrbState,
@@ -78,7 +79,15 @@ function App() {
 
   return (
     <div className={`app-container ${showActivationFlash ? 'activation-flash' : ''}`}>
-      <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} sessionId={sessionId} />
+      <SettingsModal 
+        isOpen={isSettingsOpen} 
+        onClose={() => {
+          setIsSettingsOpen(false);
+          refreshVoiceSettings();
+        }} 
+        onVoiceSettingsChange={refreshVoiceSettings}
+        sessionId={sessionId} 
+      />
       
       {/* Always Listening Indicator & Mic Support */}
       <div style={{ 

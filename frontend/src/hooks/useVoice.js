@@ -10,6 +10,29 @@ export const useVoice = (onWakeWord, setOrbState, setStatus, addMessage, session
   const [wakeActive,     setWakeActive]     = useState(false)
 
   const [voiceSettings, setVoiceSettings] = useState({ language: 'en-IN', rate: 1.05, pitch: 0.85, volume: 1.0 });
+  const [availableVoices, setAvailableVoices] = useState({});
+
+  const refreshVoiceSettings = useCallback(async () => {
+    try {
+      const [voiceRes, voicesRes] = await Promise.all([
+        fetch(`${API_BASE_URL}/profile/voice`),
+        fetch(`${API_BASE_URL}/voices`)
+      ]);
+      if (voiceRes.ok && voicesRes.ok) {
+        const vs = await voiceRes.json();
+        const vc = await voicesRes.json();
+        setVoiceSettings(vs);
+        setAvailableVoices(vc.voices || {});
+        console.log("[BAYMAX] Speech synthesis settings updated dynamically:", vs);
+      }
+    } catch (e) {
+      console.error("[BAYMAX] Failed to refresh speech settings dynamically:", e);
+    }
+  }, []);
+
+  useEffect(() => {
+    refreshVoiceSettings();
+  }, [refreshVoiceSettings]);
 
   // Refs — don't trigger re-renders
   const wakeRecRef    = useRef(null)
@@ -71,9 +94,18 @@ export const useVoice = (onWakeWord, setOrbState, setStatus, addMessage, session
 
     // Voice selection
     const voices = window.speechSynthesis.getVoices()
-    const preferred = voices.find(v => v.name === 'Google UK English Male')
-                   || voices.find(v => v.name.includes('Google') && v.lang.startsWith('en'))
-                   || voices.find(v => v.lang.startsWith('en'))
+    let preferred = null
+    const catalog = availableVoices[voiceSettings.voiceId]
+    if (catalog) {
+      preferred = voices.find(v => v.name === catalog.name) 
+               || voices.find(v => v.lang === voiceSettings.language)
+    }
+    
+    if (!preferred) {
+      preferred = voices.find(v => v.name === 'Google UK English Male')
+               || voices.find(v => v.name.includes('Google') && v.lang.startsWith('en'))
+               || voices.find(v => v.lang.startsWith('en'))
+    }
     if (preferred) utterance.voice = preferred
 
     // CRITICAL: Always reset on end or error
@@ -390,6 +422,11 @@ export const useVoice = (onWakeWord, setOrbState, setStatus, addMessage, session
         window.open(data.open_url, '_blank');
       }
 
+      if (data.voice_change || data.language_change) {
+        console.log("[BAYMAX] Dynamic voice/language change requested by backend. Fetching updated configurations...");
+        await refreshVoiceSettings();
+      }
+
       setIsProcessing(false)
 
       // Speak response — reset to idle when done
@@ -456,6 +493,7 @@ export const useVoice = (onWakeWord, setOrbState, setStatus, addMessage, session
     startWakeWordListener,
     toggleConversationMode,
     activateBaymax,
-    processCommand
+    processCommand,
+    refreshVoiceSettings
   }
 }
