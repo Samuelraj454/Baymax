@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Sun, AlertCircle, CheckCircle, ArrowRight } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function ActionPanel({ sessionId }) {
   const [briefing, setBriefing] = useState(null);
@@ -11,7 +12,7 @@ export default function ActionPanel({ sessionId }) {
   useEffect(() => {
     const fetchBriefing = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/briefing/${sessionId}`);
+        const res = await fetch(`${API_BASE_URL}/briefing/${sessionId}`);
         const data = await res.json();
         if (data.briefing) setBriefing(data.briefing);
       } catch (err) {

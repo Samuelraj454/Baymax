@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 
 export const useVoice = (onWakeWord, setOrbState, setStatus, addMessage, sessionIdRef, setLiveTranscript, setInterimTranscript, setCurrentSpeech, setShowActivationFlash) => {
   // ── STATE VARIABLES ──────────────────────────────────────────
@@ -357,7 +358,7 @@ export const useVoice = (onWakeWord, setOrbState, setStatus, addMessage, session
       const timeout    = setTimeout(() => controller.abort(), 120000)
 
       const actualSessionId = typeof sessionIdRef === 'string' ? sessionIdRef : sessionIdRef?.current || 'session_' + Date.now();
-      const res = await fetch('http://localhost:8000/query', {
+      const res = await fetch(`${API_BASE_URL}/query`, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         signal:  controller.signal,

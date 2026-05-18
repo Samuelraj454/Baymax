@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, Settings, User, Globe, Volume2, Save, Info, Music, Shield } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const useDebounce = (value, delay = 800) => {
   const [debounced, setDebounced] = useState(value)
@@ -45,10 +46,10 @@ export default function SettingsModal({ isOpen, onClose, sessionId }) {
   const loadData = async () => {
     try {
       const [profRes, voiceRes, voicesRes, langRes] = await Promise.all([
-        fetch('http://localhost:8000/profile'),
-        fetch('http://localhost:8000/profile/voice'),
-        fetch('http://localhost:8000/voices'),
-        fetch('http://localhost:8000/languages')
+        fetch(`${API_BASE_URL}/profile`),
+        fetch(`${API_BASE_URL}/profile/voice`),
+        fetch(`${API_BASE_URL}/voices`),
+        fetch(`${API_BASE_URL}/languages`)
       ]);
       
       const p = await profRes.json();
@@ -103,7 +104,7 @@ export default function SettingsModal({ isOpen, onClose, sessionId }) {
     clearTimeout(voiceSaveTimer.current)
     voiceSaveTimer.current = setTimeout(async () => {
       try {
-        await fetch('http://localhost:8000/profile/voice', {
+        await fetch(`${API_BASE_URL}/profile/voice`, {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
           body:    JSON.stringify(updated)
@@ -116,7 +117,7 @@ export default function SettingsModal({ isOpen, onClose, sessionId }) {
 
   const saveProfileField = async (key, value) => {
     try {
-      await fetch('http://localhost:8000/profile', {
+      await fetch(`${API_BASE_URL}/profile`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ key, value })

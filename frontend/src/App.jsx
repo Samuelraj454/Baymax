@@ -6,6 +6,7 @@ import ActionPanel from './components/ActionPanel';
 import SettingsModal from './components/SettingsModal';
 import { useVoice } from './hooks/useVoice';
 import { Settings, Mic, Activity } from 'lucide-react';
+import { API_BASE_URL } from './config';
 
 function App() {
   const [orbState, setOrbState] = useState('idle'); // idle, activated, listening, processing, speaking, error
@@ -63,7 +64,7 @@ function App() {
   useEffect(() => {
     const checkHealth = async () => {
       try {
-        const res = await fetch('http://localhost:8000/health');
+        const res = await fetch(`${API_BASE_URL}/health`);
         const data = await res.json();
         setSystemHealth({ online: data.status === 'online', ...data });
       } catch (err) {

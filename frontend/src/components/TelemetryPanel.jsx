@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Terminal, ShieldCheck, Activity, Globe } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function TelemetryPanel({ sessionId }) {
   const [logs, setLogs] = useState([]);
@@ -8,11 +9,11 @@ export default function TelemetryPanel({ sessionId }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const logRes = await fetch(`http://localhost:8000/logs/${sessionId}`);
+        const logRes = await fetch(`${API_BASE_URL}/logs/${sessionId}`);
         const logData = await logRes.json();
         if (logData.logs) setLogs(logData.logs.reverse().slice(0, 10));
 
-        const telRes = await fetch(`http://localhost:8000/telemetry`);
+        const telRes = await fetch(`${API_BASE_URL}/telemetry`);
         const telData = await telRes.json();
         setTelemetry(telData);
       } catch (err) {
