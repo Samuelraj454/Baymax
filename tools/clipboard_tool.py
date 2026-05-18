@@ -1,5 +1,5 @@
 from .base_tool import BaseTool, ToolResult
-import pyperclip
+
 
 class ClipboardTool(BaseTool):
     name = "clipboard"
@@ -15,6 +15,7 @@ class ClipboardTool(BaseTool):
 
     def run(self, action: str, text: str = None, **kwargs) -> ToolResult:
         try:
+            import pyperclip
             if action == "copy":
                 pyperclip.copy(text)
                 return ToolResult(success=True, output=f"Copied to clipboard: {text[:50]}...")

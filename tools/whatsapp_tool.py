@@ -1,5 +1,4 @@
 from .base_tool import BaseTool, ToolResult
-import pywhatkit
 import datetime
 from loguru import logger
 
@@ -21,6 +20,7 @@ class WhatsAppTool(BaseTool):
 
     def run(self, action: str, message: str, **kwargs) -> ToolResult:
         try:
+            import pywhatkit
             phone = kwargs.get("phone")
             
             if action == "send_to_contact":
