@@ -131,11 +131,18 @@ class BAYMAXAgent:
                                 "gmail": "https://mail.google.com",
                                 "calendar": "https://calendar.google.com",
                                 "chrome": "https://www.google.com",
+                                "edge": "https://www.google.com",
                                 "browser": "https://www.google.com",
-                                "whatsapp": "https://web.whatsapp.com"
+                                "whatsapp": "https://web.whatsapp.com",
+                                "calculator": "https://www.google.com/search?q=calculator",
+                                "calc": "https://www.google.com/search?q=calculator",
+                                "notepad": "https://docs.new",
+                                "paint": "https://jspaint.app"
                             }
                             if app_name in app_urls:
                                 open_url = app_urls[app_name]
+                        elif action == "calculator":
+                            open_url = "https://www.google.com/search?q=calculator"
 
                     args = await self._resolve_contacts(tool_name, args)
                     res = await self._execute_tool(tool_name, args)

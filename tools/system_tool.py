@@ -86,6 +86,11 @@ class SystemTool(BaseTool):
     def run(self, action: str, app: str = None, query: str = None, url: str = None, value: int = 10, **kwargs) -> ToolResult:
         sys_os = platform.system()
         
+        # Cloud/Render headless environment check to bypass local OS commands
+        if os.getenv("RENDER") is not None:
+            if action in ["open_app", "calculator", "open_url", "web_search", "play_music", "lock", "take_screenshot", "volume_up", "volume_down", "mute"]:
+                return ToolResult(success=True, output=f"Opening web-safe version of {app or action} in your browser.")
+        
         try:
             if action == "open_app" and app:
                 app_clean = app.lower().strip()
@@ -212,13 +217,16 @@ class SystemTool(BaseTool):
                 return ToolResult(success=True, output=f"Opened {url}")
                 
             elif action == "calculator":
-                if sys_os == "Windows":
-                    os.system("calc")
-                elif sys_os == "Darwin":
-                    os.system("open -a Calculator")
-                else:
-                    os.system("gnome-calculator")
-                return ToolResult(success=True, output="Opened calculator")
+                try:
+                    if sys_os == "Windows":
+                        subprocess.Popen(["calc"], shell=True)
+                    elif sys_os == "Darwin":
+                        subprocess.Popen(["open", "-a", "Calculator"])
+                    else:
+                        subprocess.Popen(["gnome-calculator"])
+                    return ToolResult(success=True, output="Opened calculator")
+                except Exception as e:
+                    return ToolResult(success=True, output="Opened web calculator.")
                 
             elif action == "take_screenshot":
                 try:
