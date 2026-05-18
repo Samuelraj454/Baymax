@@ -110,6 +110,7 @@ class QueryResponse(BaseModel):
     voice_change: bool = False
     new_voice_id: str = ""
     user_name: str = ""
+    open_url: Optional[str] = None
 
 class ProfileItem(BaseModel):
     key: str
@@ -146,7 +147,8 @@ async def query_baymax(body: QueryRequest):
             new_language=result.get("new_language", ""),
             voice_change=result.get("voice_change", False),
             new_voice_id=result.get("new_voice_id", ""),
-            user_name=result.get("user_name", "User")
+            user_name=result.get("user_name", "User"),
+            open_url=result.get("open_url", None)
         )
     except Exception as e:
         add_ui_log(sid, f"ERROR: {str(e)}", "ERROR")

@@ -82,6 +82,7 @@ class BAYMAXAgent:
             llm = LLMCore(memory_context=context, profile_context=profile_context)
             plan_data = await llm.think(tagged_input, intent="conversation", entities=entities)
             
+            open_url = None
             tool_used = ""
             final_response = plan_data.get("response", "")
             
@@ -99,6 +100,43 @@ class BAYMAXAgent:
                     args = step.get("args", {})
                     tool_used = tool_name
                     
+                    # Intercept browser/web-facing tools for client-side execution
+                    if tool_name == "system":
+                        action = args.get("action")
+                        if action == "open_url" and args.get("url"):
+                            open_url = args.get("url")
+                        elif action == "web_search" and args.get("query"):
+                            import urllib.parse
+                            open_url = f"https://www.google.com/search?q={urllib.parse.quote(args.get('query'))}"
+                        elif action == "play_music" and args.get("query"):
+                            plat = args.get("platform", "youtube")
+                            query = args.get("query")
+                            if plat == "spotify":
+                                import urllib.parse
+                                open_url = f"https://open.spotify.com/search/{urllib.parse.quote(query)}"
+                            else:
+                                system_tool = TOOL_REGISTRY.get("system")
+                                if system_tool:
+                                    video_url = system_tool._get_youtube_video_url(query)
+                                    if video_url:
+                                        open_url = video_url
+                                    else:
+                                        import urllib.parse
+                                        open_url = f"https://www.youtube.com/results?search_query={urllib.parse.quote(query)}"
+                        elif action == "open_app" and args.get("app"):
+                            app_name = args.get("app").lower()
+                            app_urls = {
+                                "youtube": "https://www.youtube.com",
+                                "spotify": "https://open.spotify.com",
+                                "gmail": "https://mail.google.com",
+                                "calendar": "https://calendar.google.com",
+                                "chrome": "https://www.google.com",
+                                "browser": "https://www.google.com",
+                                "whatsapp": "https://web.whatsapp.com"
+                            }
+                            if app_name in app_urls:
+                                open_url = app_urls[app_name]
+
                     args = await self._resolve_contacts(tool_name, args)
                     res = await self._execute_tool(tool_name, args)
                     
@@ -155,6 +193,7 @@ class BAYMAXAgent:
               "user_name":       user_name,
               "intent":          "conversation",
               "tool_used":       tool_used,
+              "open_url":        open_url,
               "success":         True
             }
 
@@ -176,6 +215,7 @@ class BAYMAXAgent:
                 "user_name": self.user_profile.get("user_name", "User"),
                 "intent": "error",
                 "tool_used": "",
+                "open_url": None,
                 "success": False
             }
 

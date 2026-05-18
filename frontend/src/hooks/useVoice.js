@@ -385,6 +385,11 @@ export const useVoice = (onWakeWord, setOrbState, setStatus, addMessage, session
         timestamp: Date.now()
       })
 
+      if (data.open_url) {
+        console.log("[BAYMAX] Client-side opening URL:", data.open_url);
+        window.open(data.open_url, '_blank');
+      }
+
       setIsProcessing(false)
 
       // Speak response — reset to idle when done
