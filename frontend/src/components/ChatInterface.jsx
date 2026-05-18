@@ -70,7 +70,12 @@ export default function ChatInterface({ messages, onSendMessage, loading, status
         <input 
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              handleSend();
+            }
+          }}
           placeholder="Type a message..."
           style={{ 
             flex: 1, background: 'transparent', border: 'none', color: 'var(--text-primary)', 
