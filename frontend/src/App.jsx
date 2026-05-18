@@ -132,7 +132,7 @@ function App() {
         <div 
           onClick={() => { if (!isListening) activateBaymax(); }}
           style={{ 
-            height: '350px', flexShrink: 0, display: 'flex', alignItems: 'center', 
+            height: '220px', flexShrink: 0, display: 'flex', alignItems: 'center', 
             justifyContent: 'center', width: '100%', cursor: 'pointer' 
           }}
         >

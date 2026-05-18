@@ -5,13 +5,13 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  min-height: 300px;
+  min-height: 180px;
   position: relative;
 }
 
 .core-indicator {
-  width: 120px;
-  height: 120px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   background: var(--bg-panel);
   position: relative;
@@ -36,8 +36,8 @@
 
 /* Status text inside orb */
 .orb-status {
-  margin-top: 24px;
-  font-size: 14px;
+  margin-top: 12px;
+  font-size: 11px;
   font-weight: 500;
   color: var(--text-secondary);
   letter-spacing: 0.05em;
