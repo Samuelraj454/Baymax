@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y \
     portaudio19-dev \
     python3-pyaudio \
     libsndfile1 \
+    espeak \
+    libespeak-dev \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
