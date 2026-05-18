@@ -270,61 +270,74 @@ export const useVoice = (onWakeWord, setOrbState, setStatus, addMessage, session
     } catch(e) {}
   }
 
-  // ── COMMAND LISTENER (FIXED) ─────────────────────────────────
+  // ── COMMAND LISTENER (FIXED SILENCE DETECTION) ───────────────
   const listenForCommand = () => {
     return new Promise((resolve) => {
       const WS = window.SpeechRecognition || window.webkitSpeechRecognition
       if (!WS) { resolve(''); return }
 
       const rec = new WS()
-      rec.continuous     = false
+      rec.continuous     = true
       rec.interimResults = true
       rec.lang           = voiceSettings.language || 'en-IN'
       rec.maxAlternatives = 3
 
       let finalResult = ''
-      let hasResult   = false
+      let silenceTimer = null
 
       cmdRecRef.current = rec
 
       if (setOrbState) setOrbState('listening')
       if (setStatus) setStatus('LISTENING')
 
-      rec.onresult = (event) => {
-        let interim = ''
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          if (event.results[i].isFinal) {
-            finalResult += event.results[i][0].transcript + ' '
-            hasResult   = true
-            if (setLiveTranscript) setLiveTranscript(finalResult.trim())
-            // Resolve immediately for faster response
-            resolve(finalResult.trim())
-            try { rec.stop() } catch(e) {}
-          } else {
-            interim += event.results[i][0].transcript
-            if (setInterimTranscript) setInterimTranscript(interim)
-          }
-        }
+      const startSilenceTimer = (durationMs) => {
+        if (silenceTimer) clearTimeout(silenceTimer)
+        silenceTimer = setTimeout(() => {
+          console.log(`[BAYMAX CMD] Silence timeout (${durationMs}ms) reached. Stopping recognition.`)
+          try { rec.stop() } catch(e) {}
+        }, durationMs)
       }
 
-      rec.onend = () => {
-        cmdRecRef.current = null
-        resolve(finalResult.trim())
+      // Initial 5-second silence buffer (if user says nothing at all)
+      startSilenceTimer(5000)
+
+      rec.onresult = (event) => {
+        let interim = ''
+        let hasNewFinal = false
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            const chunk = event.results[i][0].transcript.trim()
+            if (chunk) {
+              finalResult += chunk + ' '
+              hasNewFinal = true
+            }
+          } else {
+            interim += event.results[i][0].transcript
+          }
+        }
+
+        if (hasNewFinal) {
+          if (setLiveTranscript) setLiveTranscript(finalResult.trim())
+          // Calibrated 1.8-second silence pause window to proceed naturally after speaking a phrase
+          startSilenceTimer(1800)
+        } else if (interim) {
+          // Keep extending the silence window if user is actively speaking
+          startSilenceTimer(2500)
+        }
+
+        if (setInterimTranscript) setInterimTranscript(interim)
       }
 
       rec.onerror = (e) => {
         console.error('[BAYMAX CMD] Error:', e.error)
+        if (silenceTimer) clearTimeout(silenceTimer)
         cmdRecRef.current = null
         resolve(finalResult.trim())
       }
 
-      // Timeout safety — max 12 seconds
-      const timeout = setTimeout(() => {
-        try { rec.stop() } catch(e) {}
-      }, 12000)
-
       rec.onend = () => {
-        clearTimeout(timeout)
+        if (silenceTimer) clearTimeout(silenceTimer)
         cmdRecRef.current = null
         resolve(finalResult.trim())
       }
@@ -333,6 +346,7 @@ export const useVoice = (onWakeWord, setOrbState, setStatus, addMessage, session
         rec.start()
       } catch(e) {
         console.error('[BAYMAX CMD] Cannot start:', e)
+        if (silenceTimer) clearTimeout(silenceTimer)
         resolve('')
       }
     })
