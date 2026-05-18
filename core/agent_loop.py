@@ -176,6 +176,7 @@ class BAYMAXAgent:
                     context = self.short_mem.get()
                     llm = LLMCore(memory_context=context, profile_context=profile_context)
                     plan_data = await llm.think(correction_input, intent="correction", entities=entities)
+                    final_response = plan_data.get("response", "")
                     
             if iteration >= max_iterations and not all_success:
                 final_response = plan_data.get("response", "I encountered a persistent error while trying to complete that task.")
