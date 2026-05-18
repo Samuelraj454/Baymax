@@ -14,6 +14,8 @@ from .calculator_tool import CalculatorTool
 from .translate_tool import TranslateTool
 from .clipboard_tool import ClipboardTool
 from .voice_settings_tool import VoiceSettingsTool
+from .knowledge_tool import KnowledgeTool
+from .automation_tool import AutomationTool
 
 TOOL_REGISTRY = {
     "reminder":   ReminderTool(),
@@ -31,11 +33,13 @@ TOOL_REGISTRY = {
     "translate":  TranslateTool(),
     "clipboard":  ClipboardTool(),
     "voice_settings": VoiceSettingsTool(),
+    "knowledge":  KnowledgeTool(),
+    "automation": AutomationTool(),
 }
 
 __all__ = [
     "BaseTool", "ToolResult", "ReminderTool", "FileTool", "WebTool", "SystemTool",
     "EmailTool", "WhatsAppTool", "SMSTool", "ContactsTool", "CalendarTool",
     "NotesTool", "NewsTool", "CalculatorTool", "TranslateTool", "ClipboardTool",
-    "VoiceSettingsTool", "TOOL_REGISTRY"
+    "VoiceSettingsTool", "KnowledgeTool", "AutomationTool", "TOOL_REGISTRY"
 ]

@@ -145,8 +145,45 @@ class TextToSpeech:
         clean_text = clean_text.replace('\n', '. ')
         
         if self.use_elevenlabs and self.elevenlabs_key:
-            # ElevenLabs logic (omitted for brevity in this snippet, use mock/fallback)
-            pass
-            
+            try:
+                logger.info("Using ElevenLabs TTS...")
+                voice_id = "pNInz6obpgDQGcFmaJgB" # Example voice ID (Adam or similar)
+                url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/stream?output_format=pcm_44100"
+                headers = {
+                    "Accept": "audio/mpeg",
+                    "Content-Type": "application/json",
+                    "xi-api-key": self.elevenlabs_key
+                }
+                data = {
+                    "text": clean_text,
+                    "model_id": "eleven_monolingual_v1",
+                    "voice_settings": {
+                        "stability": 0.5,
+                        "similarity_boost": 0.5
+                    }
+                }
+                
+                # Stream the PCM data
+                with httpx.stream("POST", url, json=data, headers=headers, timeout=10.0) as response:
+                    response.raise_for_status()
+                    # Play stream directly with sounddevice
+                    samplerate = 44100
+                    stream = sd.OutputStream(samplerate=samplerate, channels=1, dtype='int16')
+                    stream.start()
+                    
+                    # Read chunks
+                    for chunk in response.iter_bytes(chunk_size=4096):
+                        if chunk:
+                            # Convert bytes to int16 numpy array
+                            audio_data = np.frombuffer(chunk, dtype=np.int16)
+                            stream.write(audio_data)
+                            
+                    stream.stop()
+                    stream.close()
+                return # Successfully spoke using ElevenLabs
+            except Exception as e:
+                logger.error(f"ElevenLabs TTS failed: {e}. Falling back to local TTS.")
+                
+        # Fallback to local TTS
         self.engine.say(clean_text)
         self.engine.runAndWait()

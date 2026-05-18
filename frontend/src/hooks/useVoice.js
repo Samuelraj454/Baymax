@@ -353,7 +353,8 @@ export const useVoice = (onWakeWord, setOrbState, setStatus, addMessage, session
 
     try {
       const controller = new AbortController()
-      const timeout    = setTimeout(() => controller.abort(), 30000)
+      // Increased timeout to 120 seconds to allow for complex LLM tool usage and self-correction loops
+      const timeout    = setTimeout(() => controller.abort(), 120000)
 
       const actualSessionId = typeof sessionIdRef === 'string' ? sessionIdRef : sessionIdRef?.current || 'session_' + Date.now();
       const res = await fetch('http://localhost:8000/query', {
