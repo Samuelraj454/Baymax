@@ -44,6 +44,34 @@ export default function ChatInterface({ messages, onSendMessage, loading, status
                 boxShadow: '0 2px 8px rgba(0,0,0,0.02)'
               }}>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', whiteSpace: 'pre-wrap', color: 'var(--text-primary)' }}>{m.content}</p>
+                {m.open_url && (
+                  <button 
+                    onClick={() => window.open(m.open_url, '_blank')}
+                    className="flex items-center justify-center"
+                    style={{ 
+                      marginTop: '12px',
+                      background: 'linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%)',
+                      color: 'white',
+                      border: 'none',
+                      padding: '10px 18px',
+                      borderRadius: '8px',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      gap: '8px',
+                      boxShadow: '0 4px 12px rgba(37, 99, 235, 0.2)',
+                      width: '100%',
+                      transition: 'all 0.2s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.filter = 'brightness(1.1)'}
+                    onMouseOut={(e) => e.currentTarget.style.filter = 'none'}
+                  >
+                    Open Link
+                  </button>
+                )}
               </div>
             </div>
           </div>

@@ -428,12 +428,18 @@ export const useVoice = (onWakeWord, setOrbState, setStatus, addMessage, session
         role:      'baymax',
         content:   data.response || responseText,
         tool_used: data.tool_used || '',
+        open_url:  data.open_url || '',
         timestamp: Date.now()
       })
 
       if (data.open_url) {
         console.log("[BAYMAX] Client-side opening URL:", data.open_url);
-        window.open(data.open_url, '_blank');
+        if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+          // On mobile, navigating the current tab bypasses all popup blocks
+          window.location.href = data.open_url;
+        } else {
+          window.open(data.open_url, '_blank');
+        }
       }
 
       if (data.voice_change || data.language_change) {
