@@ -111,10 +111,21 @@ class BAYMAXAgent:
                     self.user_profile.set("most_used_tool", tool_name, "usage")
 
                 if all_success:
+                    tool_output = " ".join(results).strip()
                     if "message" in plan_data:
-                        final_response = plan_data["message"]
+                        if tool_output:
+                            # Filter out standard system statuses and action confirmations
+                            ignore_prefixes = ["opened", "playing", "volume", "executed", "screen locked", "saved screenshot", "done", "success", "true"]
+                            is_action_output = any(tool_output.lower().startswith(p) for p in ignore_prefixes)
+                            
+                            if not is_action_output and tool_output.lower() not in plan_data["message"].lower():
+                                final_response = f"{plan_data['message']} {tool_output}"
+                            else:
+                                final_response = plan_data["message"]
+                        else:
+                            final_response = plan_data["message"]
                     else:
-                        final_response = " ".join(results) or "Done."
+                        final_response = tool_output or "Done."
                     break
                 else:
                     iteration += 1
