@@ -27,7 +27,7 @@ class VoiceLoop:
         text, confidence = self.stt.listen_with_confidence()
         
         if not text:
-            self.tts.speak("Didn't catch that. Say it again?")
+            print("[BAYMAX] No command detected, returning silently.")
             return
 
         print(f"Heard: {text} [confidence: {confidence:.0%}]")

@@ -1,5 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { X, Settings, User, Globe, Volume2, Save, Info, Music, Shield } from 'lucide-react';
+
+const useDebounce = (value, delay = 800) => {
+  const [debounced, setDebounced] = useState(value)
+  useEffect(() => {
+    const timer = setTimeout(() => setDebounced(value), delay)
+    return () => clearTimeout(timer)
+  }, [value, delay])
+  return debounced
+}
+
+const COUNTRIES = [
+  { code: "IN",  name: "India 🇮🇳" },
+  { code: "US",  name: "United States 🇺🇸" },
+  { code: "GB",  name: "United Kingdom 🇬🇧" },
+  { code: "AU",  name: "Australia 🇦🇺" },
+  { code: "CA",  name: "Canada 🇨🇦" },
+  { code: "SG",  name: "Singapore 🇸🇬" },
+  { code: "AE",  name: "UAE 🇦🇪" },
+]
 
 export default function SettingsModal({ isOpen, onClose, sessionId }) {
   const [profile, setProfile] = useState({});
@@ -7,6 +26,16 @@ export default function SettingsModal({ isOpen, onClose, sessionId }) {
   const [availableVoices, setAvailableVoices] = useState({});
   const [availableLanguages, setAvailableLanguages] = useState([]);
   
+  const [cityInput, setCityInput] = useState('');
+  const [countryInput, setCountryInput] = useState('');
+  const [nameInput, setNameInput] = useState('');
+
+  const debouncedCity = useDebounce(cityInput, 800);
+  const debouncedCountry = useDebounce(countryInput, 800);
+  const debouncedName = useDebounce(nameInput, 800);
+
+  const voiceSaveTimer = useRef(null);
+
   useEffect(() => {
     if (isOpen) {
       loadData();
@@ -31,21 +60,59 @@ export default function SettingsModal({ isOpen, onClose, sessionId }) {
       setVoiceSettings(vs);
       setAvailableVoices(vc.voices || {});
       setAvailableLanguages(lg.languages || []);
+      
+      setCityInput(p.user_city || '');
+      setCountryInput(p.user_country || 'IN');
+      setNameInput(p.user_name || '');
     } catch (err) {
       console.error("Failed to load settings data", err);
     }
   };
+
+  useEffect(() => {
+    if (debouncedCity && debouncedCity !== profile.user_city) {
+      saveProfileField('user_city', debouncedCity);
+      setProfile(p => ({...p, user_city: debouncedCity}));
+    }
+  }, [debouncedCity]);
+
+  useEffect(() => {
+    if (debouncedName && debouncedName !== profile.user_name) {
+      saveProfileField('user_name', debouncedName);
+      setProfile(p => ({...p, user_name: debouncedName}));
+    }
+  }, [debouncedName]);
+
+  useEffect(() => {
+    if (debouncedCountry && debouncedCountry !== profile.user_country) {
+      saveProfileField('user_country', debouncedCountry);
+      setProfile(p => ({...p, user_country: debouncedCountry}));
+    }
+  }, [debouncedCountry]);
 
   const handleProfileChange = (key, value) => {
     setProfile(prev => ({ ...prev, [key]: value }));
     saveProfileField(key, value);
   };
 
-  const handleVoiceChange = (key, value) => {
-    const updatedSettings = { ...voiceSettings, [key]: value };
-    setVoiceSettings(updatedSettings);
-    saveVoiceSettings(updatedSettings);
-  };
+  const handleVoiceChange = async (key, value) => {
+    const updated = { ...voiceSettings, [key]: value }
+    setVoiceSettings(updated)
+
+    // Save with 500ms debounce
+    clearTimeout(voiceSaveTimer.current)
+    voiceSaveTimer.current = setTimeout(async () => {
+      try {
+        await fetch('http://localhost:8000/profile/voice', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(updated)
+        });
+      } catch (e) {
+        console.error("Error saving voice settings", e);
+      }
+    }, 500)
+  }
 
   const saveProfileField = async (key, value) => {
     try {
@@ -56,18 +123,6 @@ export default function SettingsModal({ isOpen, onClose, sessionId }) {
       });
     } catch (e) { console.error("Error saving profile", e); }
   };
-
-  const saveVoiceSettings = async (settingsToSave) => {
-    try {
-      await fetch('http://localhost:8000/profile/voice', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(settingsToSave)
-      });
-    } catch (e) { console.error("Error saving voice settings", e); }
-  };
-
-
 
   const testVoice = () => {
     const text = "Hello! This is BAYMAX. How does this voice sound?";
@@ -206,34 +261,50 @@ export default function SettingsModal({ isOpen, onClose, sessionId }) {
               <h3 className="flex items-center text-cyan" style={{ gap: '8px', margin: 0, fontSize: '16px' }}><User size={18}/> Personal Profile</h3>
               
               <div className="flex-col" style={{ gap: '8px' }}>
-                <label style={{ fontSize: '12px', opacity: 0.8 }}>Your Name</label>
+                <div className="flex justify-between">
+                  <label style={{ fontSize: '12px', opacity: 0.8 }}>Your Name</label>
+                  {debouncedName !== nameInput && <span style={{color:'grey', fontSize:'11px'}}>typing...</span>}
+                  {debouncedName === nameInput && nameInput && <span style={{color:'teal', fontSize:'11px'}}>✓ saved</span>}
+                </div>
                 <input 
                   className="glass-panel"
-                  value={profile.user_name || ''}
-                  onChange={e => handleProfileChange('user_name', e.target.value)}
+                  value={nameInput}
+                  onChange={e => setNameInput(e.target.value)}
                   style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', padding: '10px', color: 'white', borderRadius: '6px' }}
                 />
               </div>
 
               <div className="flex-col" style={{ gap: '8px' }}>
-                <label style={{ fontSize: '12px', opacity: 0.8 }}>Your City</label>
+                <div className="flex justify-between">
+                  <label style={{ fontSize: '12px', opacity: 0.8 }}>Your City</label>
+                  {debouncedCity !== cityInput && <span style={{color:'grey', fontSize:'11px'}}>typing...</span>}
+                  {debouncedCity === cityInput && cityInput && <span style={{color:'teal', fontSize:'11px'}}>✓ saved</span>}
+                </div>
                 <input 
                   className="glass-panel"
-                  value={profile.user_city || ''}
-                  onChange={e => handleProfileChange('user_city', e.target.value)}
+                  value={cityInput}
+                  onChange={e => setCityInput(e.target.value)}
+                  placeholder="Your city"
                   style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', padding: '10px', color: 'white', borderRadius: '6px' }}
                 />
               </div>
 
               <div style={{ display: 'flex', gap: '16px' }}>
                 <div className="flex-col" style={{ gap: '8px', flex: 1 }}>
-                  <label style={{ fontSize: '12px', opacity: 0.8 }}>Country Code</label>
-                  <input 
+                  <div className="flex justify-between">
+                    <label style={{ fontSize: '12px', opacity: 0.8 }}>Country Code</label>
+                    {debouncedCountry !== countryInput && <span style={{color:'grey', fontSize:'11px'}}>...</span>}
+                  </div>
+                  <select 
                     className="glass-panel"
-                    value={profile.user_country || ''}
-                    onChange={e => handleProfileChange('user_country', e.target.value)}
+                    value={countryInput}
+                    onChange={e => setCountryInput(e.target.value)}
                     style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', padding: '10px', color: 'white', borderRadius: '6px' }}
-                  />
+                  >
+                    {COUNTRIES.map(c => (
+                      <option key={c.code} value={c.code}>{c.name}</option>
+                    ))}
+                  </select>
                 </div>
                 <div className="flex-col" style={{ gap: '8px', flex: 1 }}>
                   <label style={{ fontSize: '12px', opacity: 0.8 }}>Timezone</label>
@@ -282,14 +353,13 @@ export default function SettingsModal({ isOpen, onClose, sessionId }) {
             {/* System Info */}
             <div className="flex-col" style={{ gap: '8px', background: 'rgba(255,255,255,0.03)', padding: '20px', borderRadius: '12px', fontSize: '12px', color: 'rgba(255,255,255,0.6)' }}>
               <h3 className="flex items-center text-cyan" style={{ gap: '8px', margin: 0, fontSize: '14px', marginBottom: '8px' }}><Info size={16}/> System Info</h3>
-              <div className="flex justify-between"><span>BAYMAX Version:</span> <span>8.0</span></div>
+              <div className="flex justify-between"><span>BAYMAX Version:</span> <span>10.0</span></div>
               <div className="flex justify-between"><span>Last Active:</span> <span>{profile.last_active || 'Never'}</span></div>
               <div className="flex justify-between"><span>Most Used Tool:</span> <span>{profile.most_used_tool || 'None'}</span></div>
             </div>
 
           </div>
         </div>
-
 
       </div>
     </div>

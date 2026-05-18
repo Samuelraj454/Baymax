@@ -1,105 +1,93 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg-primary: #050505;
-  --bg-secondary: rgba(15, 15, 20, 0.7);
-  --text-primary: #ffffff;
-  --text-secondary: #a0a4b8;
-  --accent-cyan: #00f0ff;
-  --accent-red: #ff2d55;
-  --panel-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.6);
-  --glass-blur: blur(16px);
+  --bg-primary: #fcfcfc;
+  --bg-secondary: rgba(255, 255, 255, 0.85);
+  --bg-panel: rgba(255, 255, 255, 0.95);
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --accent-primary: #2563eb;
+  --accent-secondary: #6366f1;
+  --accent-error: #ef4444;
+  --panel-border: rgba(0, 0, 0, 0.06);
+  --panel-border-hover: rgba(0, 0, 0, 0.1);
+  --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
+  --glass-blur: blur(24px);
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   min-height: 100vh;
   width: 100vw;
   overflow-x: hidden;
-  background-image: 
-    radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.1), transparent 30%),
-    radial-gradient(circle at 90% 80%, rgba(255, 45, 85, 0.08), transparent 30%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Outfit', sans-serif;
   font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
 }
 
 .glass-panel {
-  background: var(--bg-secondary);
+  background: var(--bg-panel);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
   border: 1px solid var(--panel-border);
-  border-radius: 20px;
+  border-radius: 16px;
   box-shadow: var(--glass-shadow);
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
 
 .glass-panel:hover {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--panel-border-hover);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05), 0 2px 5px rgba(0, 0, 0, 0.02);
 }
 
 #root {
   width: 100%;
   height: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .app-container {
   display: grid;
-  grid-template-columns: 320px 1fr 340px;
+  grid-template-columns: 300px 1fr 340px;
   grid-template-rows: auto;
-  gap: 24px;
+  gap: 40px;
   width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
   min-height: 100vh;
-  padding: 24px;
-}
-
-/* Animations */
-@keyframes pulse-cyan {
-  0% { box-shadow: 0 0 20px rgba(0, 240, 255, 0.2); }
-  50% { box-shadow: 0 0 40px rgba(0, 240, 255, 0.5); }
-  100% { box-shadow: 0 0 20px rgba(0, 240, 255, 0.2); }
-}
-
-@keyframes pulse-red {
-  0% { box-shadow: 0 0 20px rgba(255, 45, 85, 0.3); }
-  50% { box-shadow: 0 0 50px rgba(255, 45, 85, 0.7); }
-  100% { box-shadow: 0 0 20px rgba(255, 45, 85, 0.3); }
-}
-
-@keyframes rotate-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes bounce-subtle {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+  padding: 40px;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 /* Utilities */
@@ -108,19 +96,17 @@ h1, h2, h3, h4, h5, h6 {
 .items-center { align-items: center; }
 .justify-center { justify-content: center; }
 .justify-between { justify-content: space-between; }
-.text-cyan { color: var(--accent-cyan); }
-.text-red { color: var(--accent-red); }
-.glow-cyan { text-shadow: 0 0 10px var(--accent-cyan); }
-.glow-red { text-shadow: 0 0 10px var(--accent-red); }
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
 .h-full { height: 100%; }
-.h-screen-content { height: calc(100vh - 48px); }
+.h-screen-content { height: calc(100vh - 80px); }
 
 .activation-flash {
-  animation: flash-teal 0.2s ease-out;
+  animation: flash-white 0.4s ease-out;
 }
 
-@keyframes flash-teal {
-  0% { background-color: rgba(0, 255, 255, 0.4); }
+@keyframes flash-white {
+  0% { background-color: rgba(37, 99, 235, 0.05); }
   100% { background-color: transparent; }
 }
 
@@ -128,14 +114,14 @@ h1, h2, h3, h4, h5, h6 {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #666;
+  background: #d1d5db;
   transition: all 0.3s ease;
 }
 
 .listening-dot.active {
-  background: #00ffff;
-  box-shadow: 0 0 10px #00ffff;
-  animation: pulse-dot 2s infinite;
+  background: var(--accent-primary);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+  animation: pulse-dot 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
 }
 
 @keyframes pulse-dot {

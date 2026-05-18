@@ -23,17 +23,27 @@ class LLMCore:
         day = now.strftime("%A")
         
         context_prompt = f"\n\nCURRENT CONTEXT:\n- Time: {timestamp}\n- Day: {day}\n- Location: Hyderabad, India\n"
-        profile_prompt = f"\n\nUSER PROFILE:\n{self.profile_context}" if self.profile_context else ""
-        system_prompt = BAYMAX_SYSTEM_PROMPT + context_prompt + profile_prompt
         
+        system_with_profile = BAYMAX_SYSTEM_PROMPT + context_prompt
+        if self.profile_context:
+            system_with_profile += f"\n\n━━━ USER PROFILE ━━━\n{self.profile_context}\n━━━━━━━━━━━━━━━━━━━━"
+            
         # Build message history
-        messages = [{"role": "system", "content": system_prompt}]
+        messages = [{"role": "system", "content": system_with_profile}]
         for m in self.memory[-10:]: # Last 10 turns
             messages.append(m)
         messages.append({"role": "user", "content": user_input})
 
+        task_words = [
+            "play", "open", "weather", "remind", "email",
+            "whatsapp", "search", "note", "calendar", "translate",
+            "calculate", "news", "time", "date", "volume", "call"
+        ]
+        is_task = any(w in user_input.lower() for w in task_words)
+        temp = 0.1 if is_task else 0.75
+
         # Strategy 1 & 2: Primary call with temperature control
-        raw_response = await self._call_llm(messages, self.primary_model, temperature=0.1)
+        raw_response = await self._call_llm(messages, self.primary_model, temperature=temp)
         logger.debug(f"Primary LLM ({self.primary_model}) Response: {raw_response}")
         
         # Strategy 3: Extraction Waterfall
@@ -46,7 +56,7 @@ class LLMCore:
         logger.warning(f"JSON Parse failed on {self.primary_model}. Retrying with {self.fallback_model}...")
         
         # If raw_response is empty, don't include it in history
-        retry_messages = [{"role": "system", "content": system_prompt}]
+        retry_messages = [{"role": "system", "content": system_with_profile}]
         for m in self.memory[-5:]:
              retry_messages.append(m)
         retry_messages.append({"role": "user", "content": user_input})

@@ -59,8 +59,7 @@ class BAYMAXAgent:
             lang_config = self.user_profile.get_language_config()
             user_name = self.user_profile.get("user_name", "User")
             
-            # Add profile to short term context for history relevance if needed
-            self.short_mem.add("system", f"USER PROFILE: {profile_context}")
+            # (Removed redundant short_mem USER PROFILE injection to prevent context bloat)
 
             # Tag input with mode
             tagged_input = raw_input if "[VOICE MODE]" in raw_input else f"[TEXT MODE] {raw_input}"
@@ -79,40 +78,58 @@ class BAYMAXAgent:
             logger.info(f"BAYMAX: User={user_name}, Input={tagged_input}, Entities={entities}")
             
             # LLM Thinking
-            context = self.short_mem.get()[:-1] # Remove the system message we just added from standard context if needed, or leave it. Actually, short_mem.get() returns all. Let's just pass the context.
+            context = self.short_mem.get()
             llm = LLMCore(memory_context=context, profile_context=profile_context)
             plan_data = await llm.think(tagged_input, intent="conversation", entities=entities)
             
             tool_used = ""
             final_response = plan_data.get("response", "")
             
-            if plan_data.get("needs_tools"):
+            # Autonomous Self-Correction Loop
+            max_iterations = 2
+            iteration = 0
+            
+            while plan_data.get("needs_tools") and iteration < max_iterations:
                 steps = plan_data.get("steps", [])
                 results = []
+                all_success = True
+                
                 for step in steps:
                     tool_name = step.get("tool")
                     args = step.get("args", {})
                     tool_used = tool_name
                     
-                    # Contact Resolution
                     args = await self._resolve_contacts(tool_name, args)
-                    
-                    # Execute
                     res = await self._execute_tool(tool_name, args)
                     
                     if res["success"]:
                         results.append(str(res["output"]) if not isinstance(res["output"], str) else res["output"])
                     else:
-                        results.append(f"Failed: {res['error']}")
+                        results.append(f"Tool '{tool_name}' Failed: {res['error']}")
+                        all_success = False
                         
-                    # Usage stats
                     self.user_profile.set("most_used_tool", tool_name, "usage")
 
-                # The LLM often sets a "message" field when tools are used. Use it as response.
-                if "message" in plan_data:
-                    final_response = plan_data["message"]
+                if all_success:
+                    if "message" in plan_data:
+                        final_response = plan_data["message"]
+                    else:
+                        final_response = " ".join(results) or "Done."
+                    break
                 else:
-                    final_response = " ".join(results) or "Done."
+                    iteration += 1
+                    error_feedback = " ".join(results)
+                    logger.warning(f"Self-correction loop {iteration} triggered. Error: {error_feedback}")
+                    
+                    correction_input = f"SYSTEM WARNING: The tool execution failed. Details: {error_feedback}. Please re-evaluate and provide a new JSON plan to fix this, or explain the failure to the user."
+                    
+                    # Call LLM again with the error context
+                    context = self.short_mem.get()
+                    llm = LLMCore(memory_context=context, profile_context=profile_context)
+                    plan_data = await llm.think(correction_input, intent="correction", entities=entities)
+                    
+            if iteration >= max_iterations and not all_success:
+                final_response = plan_data.get("response", "I encountered a persistent error while trying to complete that task.")
 
             # Build response dict
             speak_text = self._clean_for_speech(final_response)
@@ -199,24 +216,22 @@ class BAYMAXAgent:
         if not tool:
             return {"success": False, "error": f"Tool {tool_name} not found."}
             
-        for attempt in range(3):
-            try:
-                loop = asyncio.get_event_loop()
-                res = await loop.run_in_executor(None, lambda: tool.run(**args))
-                
-                success = res.success if hasattr(res, 'success') else True
-                output = res.output if hasattr(res, 'output') else str(res)
-                
-                if success:
-                    return {"success": True, "output": output}
-                
-                err_msg = res.error if hasattr(res, 'error') else "Unknown tool error"
-                logger.warning(f"Tool {tool_name} failed attempt {attempt+1}: {err_msg}")
-            except Exception as e:
-                logger.error(f"Tool execution error: {e}")
-                if attempt == 2:
-                    return {"success": False, "error": str(e)}
-        return {"success": False, "error": "Max retries exceeded."}
+        try:
+            loop = asyncio.get_event_loop()
+            res = await loop.run_in_executor(None, lambda: tool.run(**args))
+            
+            success = res.success if hasattr(res, 'success') else True
+            output = res.output if hasattr(res, 'output') else str(res)
+            
+            if success:
+                return {"success": True, "output": output}
+            
+            err_msg = res.error if hasattr(res, 'error') else "Unknown tool error"
+            logger.warning(f"Tool {tool_name} failed: {err_msg}")
+            return {"success": False, "error": err_msg}
+        except Exception as e:
+            logger.error(f"Tool execution error: {e}")
+            return {"success": False, "error": str(e)}
 
     def _save_memory(self, session_id: str, user_text: str, assistant_text: str):
         self.short_mem.add("user", user_text)

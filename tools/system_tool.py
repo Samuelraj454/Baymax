@@ -27,65 +27,61 @@ class SystemTool(BaseTool):
         "required": ["action"]
     }
 
-    def _get_youtube_video_url(self, query: str) -> str:
-        """
-        Get direct YouTube video URL for a search query.
-        Uses YouTube's search page and extracts first video ID.
-        No API key needed.
-        """
-        import httpx
-        headers = {
-            "User-Agent": (
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/120.0.0.0 Safari/537.36"
-            )
-        }
-
-        encoded = urllib.parse.quote(query)
-        search_url = f"https://www.youtube.com/results?search_query={encoded}"
-
-        try:
-            r = httpx.get(search_url, headers=headers, timeout=10, follow_redirects=True)
-            if r.status_code == 200:
-                video_ids = re.findall(r'"videoId":"([a-zA-Z0-9_-]{11})"', r.text)
-                if video_ids:
-                    seen = set()
-                    unique_ids = []
-                    for vid in video_ids:
-                        if vid not in seen:
-                            seen.add(vid)
-                            unique_ids.append(vid)
-
-                    first_id = unique_ids[0]
-                    return f"https://www.youtube.com/watch?v={first_id}&autoplay=1"
-        except Exception:
-            pass
-        return None
-
     def _play_music(self, query: str, platform: str = "youtube") -> str:
+        import urllib.parse, re, httpx
+
+        query = query.strip() if query else "top hits 2026"
+
         if platform == "spotify":
             url = f"https://open.spotify.com/search/{urllib.parse.quote(query)}"
             webbrowser.open(url)
             return f"Opening Spotify for '{query}'."
 
-        elif platform in ("gaana", "jiosaavn"):
-            base = "https://gaana.com/search/" if platform == "gaana" else "https://www.jiosaavn.com/search/"
+        if platform in ("gaana", "jiosaavn"):
+            base = "https://gaana.com/search/" if platform == "gaana" \
+                   else "https://www.jiosaavn.com/search/"
             webbrowser.open(base + urllib.parse.quote(query))
             return f"Opening {platform} for '{query}'."
 
-        else:
-            try:
-                video_url = self._get_youtube_video_url(query)
-                if video_url:
-                    webbrowser.open(video_url)
-                    return f"Playing '{query}' on YouTube."
-                else:
-                    fallback = f"https://www.youtube.com/results?search_query={urllib.parse.quote(query)}"
-                    webbrowser.open(fallback)
-                    return f"Opened YouTube search for '{query}'."
-            except Exception as e:
-                return f"Couldn't play music: {str(e)}"
+        # Default: YouTube — find ACTUAL video URL
+        video_url = self._get_youtube_video_url(query)
+        if video_url:
+            webbrowser.open(video_url)
+            return f"Playing '{query}' on YouTube."
+
+        # Fallback: YouTube search
+        fallback = f"https://www.youtube.com/results?search_query={urllib.parse.quote(query)}"
+        webbrowser.open(fallback)
+        return f"Opened YouTube search for '{query}'. Click to play."
+
+    def _get_youtube_video_url(self, query: str) -> str | None:
+        import httpx, re, urllib.parse
+        from loguru import logger
+        try:
+            headers = {
+                "User-Agent": (
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/120.0.0.0 Safari/537.36"
+                ),
+                "Accept-Language": "en-US,en;q=0.9"
+            }
+            encoded = urllib.parse.quote(query)
+            r = httpx.get(
+                f"https://www.youtube.com/results?search_query={encoded}",
+                headers=headers, timeout=10, follow_redirects=True
+            )
+            ids = re.findall(r'"videoId":"([a-zA-Z0-9_-]{11})"', r.text)
+            seen, unique = set(), []
+            for vid in ids:
+                if vid not in seen:
+                    seen.add(vid)
+                    unique.append(vid)
+            if unique:
+                return f"https://www.youtube.com/watch?v={unique[0]}&autoplay=1"
+        except Exception as e:
+            logger.warning(f"YouTube URL fetch failed: {e}")
+        return None
 
     def run(self, action: str, app: str = None, query: str = None, url: str = None, value: int = 10, **kwargs) -> ToolResult:
         sys_os = platform.system()
@@ -151,18 +147,20 @@ class SystemTool(BaseTool):
                 return ToolResult(success=True, output=today)
                 
             elif action == "open_url" and url:
+                import re, urllib.parse
                 if not url.startswith("http"):
                     url = "https://" + url
-                
+
+                # Convert YouTube search URL to direct video
                 if "youtube.com/results" in url:
-                    query_match = re.search(r'search_query=([^&]+)', url)
-                    if query_match:
-                        q = urllib.parse.unquote_plus(query_match.group(1))
-                        video_url = self._get_youtube_video_url(q)
-                        if video_url:
-                            webbrowser.open(video_url)
-                            return ToolResult(success=True, output="Playing on YouTube.")
-                            
+                    m = re.search(r'search_query=([^&]+)', url)
+                    if m:
+                        query = urllib.parse.unquote_plus(m.group(1))
+                        video = self._get_youtube_video_url(query)
+                        if video:
+                            webbrowser.open(video)
+                            return ToolResult(success=True, output=f"Playing on YouTube.")
+
                 webbrowser.open(url)
                 return ToolResult(success=True, output=f"Opened {url}")
                 

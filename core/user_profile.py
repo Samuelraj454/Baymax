@@ -106,22 +106,35 @@ class UserProfile:
                 self.set(f"{entities['name'].lower()}_email", entities["email"], "contacts")
 
     def build_context_string(self) -> str:
-        name = self.get("user_name", "User")
-        city = self.get("user_city", "Unknown")
-        lang = self.get("user_language", "en-IN")
-        tz = self.get("user_timezone", "Unknown")
-        music = self.get("preferred_music_genre", "Any")
-        
+        from app_config import DEFAULT_CITY, DEFAULT_COUNTRY, DEFAULT_TIMEZONE
+
+        name     = self.get("user_name",    "the user")
+        city     = self.get("user_city",    DEFAULT_CITY)
+        country  = self.get("user_country", DEFAULT_COUNTRY)
+        lang     = self.get("user_language", "en-IN")
+        timezone = self.get("user_timezone", DEFAULT_TIMEZONE)
+        music    = self.get("preferred_music_genre",   "top hits")
+        news_cat = self.get("preferred_news_category", "general")
+
         # Build contacts string dynamically
         contacts = []
         for k, v in self.profile.items():
             if k.endswith("_phone") or k.endswith("_email"):
                 contacts.append(f"{k.replace('_phone', '').replace('_email', '')}={v}")
-        contacts_str = ", ".join(contacts) if contacts else "None"
+        contacts_str = ", ".join(contacts) if contacts else "none saved yet"
 
-        return (f"User's name: {name}. City: {city}. Language: {lang}. "
-                f"Timezone: {tz}. Preferred music: {music}. "
-                f"Known contacts: {contacts_str}.")
+        return (
+            f"User's name: {name}. "
+            f"City: {city}. "
+            f"Country: {country}. "
+            f"Language: {lang}. "
+            f"Timezone: {timezone}. "
+            f"Preferred music: {music}. "
+            f"News category: {news_cat}. "
+            f"Known contacts: {contacts_str}. "
+            f"IMPORTANT: Always use {city} as default city for weather. "
+            f"Never ask for city again — it is {city}."
+        )
 
     def get_voice_settings(self) -> dict:
         return {

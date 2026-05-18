@@ -1,143 +1,140 @@
-.baymax-orb-container {
+.orb-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
   position: relative;
-  width: 200px;
-  height: 200px;
+}
+
+.core-indicator {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--bg-panel);
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.main-orb {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #fff, #00ffff);
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-  transition: all 0.5s ease;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), inset 0 2px 10px rgba(0,0,0,0.02);
   z-index: 10;
 }
 
-.orb-core {
+/* Base Rings */
+.core-indicator::before {
+  content: '';
   position: absolute;
-  top: 10%;
-  left: 10%;
-  width: 80%;
-  height: 80%;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(99, 102, 241, 0.05));
+  z-index: -1;
+  transition: all 0.4s ease;
 }
 
-/* IDLE STATE */
-.baymax-orb-container.idle .main-orb {
-  animation: idle-pulse 3s infinite ease-in-out;
-  box-shadow: 0 0 20px rgba(0, 200, 200, 0.3);
+/* Status text inside orb */
+.orb-status {
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  z-index: 20;
+  transition: color 0.3s ease;
 }
 
-@keyframes idle-pulse {
-  0%, 100% { transform: scale(1); opacity: 0.9; }
-  50% { transform: scale(1.03); opacity: 1; }
+/* State: Idle */
+.state-idle .core-indicator {
+  transform: scale(1);
+}
+.state-idle .core-indicator::before {
+  opacity: 0.5;
 }
 
-/* ACTIVATED STATE */
-.baymax-orb-container.activated .main-orb {
-  animation: activated-flash 0.3s 2 ease-in-out;
-  box-shadow: 0 0 60px rgba(0, 255, 255, 0.9);
+/* State: Activated */
+.state-activated .core-indicator {
+  transform: scale(1.05);
+  box-shadow: 0 8px 32px rgba(37, 99, 235, 0.12), inset 0 2px 10px rgba(37, 99, 235, 0.05);
+}
+.state-activated .core-indicator::before {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.4), rgba(99, 102, 241, 0.2));
+  animation: spin-gradient 4s linear infinite;
 }
 
-@keyframes activated-flash {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); background: #fff; }
+/* State: Listening (Breathing Ripple) */
+.state-listening .core-indicator {
+  transform: scale(1.1);
+  box-shadow: 0 8px 40px rgba(37, 99, 235, 0.15);
 }
-
-/* LISTENING STATE */
-.baymax-orb-container.listening .orb-rings .ring {
+.state-listening .core-indicator::after {
+  content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100px;
-  height: 100px;
-  border: 2px solid #00ffff;
+  top: 0; left: 0; right: 0; bottom: 0;
   border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: ring-ripple 1.5s infinite linear;
-  opacity: 0;
+  border: 1px solid rgba(37, 99, 235, 0.4);
+  animation: ripple-out 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  z-index: -2;
 }
 
-.ring-1 { animation-delay: 0s !important; }
-.ring-2 { animation-delay: 0.5s !important; }
-.ring-3 { animation-delay: 1s !important; }
-
-@keyframes ring-ripple {
-  0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-  100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+/* State: Processing (Fast Pulse) */
+.state-processing .core-indicator {
+  animation: subtle-pulse 1.5s ease-in-out infinite alternate;
+}
+.state-processing .core-indicator::before {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.5), rgba(168, 85, 247, 0.3));
+  animation: spin-gradient 2s linear infinite;
 }
 
-/* PROCESSING STATE */
-.baymax-orb-container.processing .main-orb {
-  animation: breath 2s infinite ease-in-out;
+/* State: Speaking (Audio Wave Simulation via Box Shadow) */
+.state-speaking .core-indicator {
+  transform: scale(1.15);
+  animation: speak-pulse 0.3s ease infinite alternate;
+  background: #ffffff;
+}
+.state-speaking .core-indicator::before {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.6), rgba(99, 102, 241, 0.4));
+  animation: spin-gradient 3s linear infinite;
 }
 
-.processing-ring {
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  border: 2px dashed #00ffff;
-  border-radius: 50%;
-  animation: rotate 1s linear infinite;
+/* State: Error */
+.state-error .core-indicator {
+  box-shadow: 0 8px 32px rgba(239, 68, 68, 0.15);
+}
+.state-error .core-indicator::before {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.4), rgba(220, 38, 38, 0.2));
 }
 
-@keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@keyframes spin-gradient {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-@keyframes breath {
-  0%, 100% { opacity: 0.8; }
-  50% { opacity: 1; }
+@keyframes ripple-out {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
 }
 
-/* SPEAKING STATE */
-.speaking-waves {
-  position: absolute;
-  bottom: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 4px;
-  align-items: flex-end;
-  height: 30px;
+@keyframes subtle-pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
 }
 
-.wave {
-  width: 4px;
-  background: #00ffff;
-  border-radius: 2px;
-  animation: wave-bounce 0.5s infinite ease-in-out;
-}
-
-@keyframes wave-bounce {
-  0%, 100% { height: 5px; }
-  50% { height: 25px; }
-}
-
-.wave-1 { animation-delay: 0.1s; }
-.wave-2 { animation-delay: 0.2s; }
-.wave-3 { animation-delay: 0.3s; }
-.wave-4 { animation-delay: 0.4s; }
-.wave-5 { animation-delay: 0.5s; }
-
-/* ERROR STATE */
-.baymax-orb-container.error .main-orb {
-  background: radial-gradient(circle at 30% 30%, #fff, #ff4444);
-  box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
-  animation: error-shake 0.1s 3;
-}
-
-@keyframes error-shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
+@keyframes speak-pulse {
+  0% { 
+    transform: scale(1.1);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+  }
+  100% { 
+    transform: scale(1.2);
+    box-shadow: 0 0 0 12px rgba(37, 99, 235, 0.2);
+  }
 }

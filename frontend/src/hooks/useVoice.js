@@ -264,6 +264,9 @@ export const useVoice = (onWakeWord, setOrbState, setStatus, addMessage, session
             finalResult += event.results[i][0].transcript + ' '
             hasResult   = true
             if (setLiveTranscript) setLiveTranscript(finalResult.trim())
+            // Resolve immediately for faster response
+            resolve(finalResult.trim())
+            try { rec.stop() } catch(e) {}
           } else {
             interim += event.results[i][0].transcript
             if (setInterimTranscript) setInterimTranscript(interim)
@@ -324,13 +327,14 @@ export const useVoice = (onWakeWord, setOrbState, setStatus, addMessage, session
     const ack  = acks[Math.floor(Math.random() * acks.length)]
 
     await new Promise(resolve => speak(ack, resolve))
-    await new Promise(r => setTimeout(r, 200))
+    await new Promise(r => setTimeout(r, 400)) // Increased delay to avoid mic conflict
 
     // Listen for command
     const command = await listenForCommand()
 
     if (!command || command.trim().length < 2) {
-      speak("Didn't catch that.", resetToIdle)
+      console.warn("[BAYMAX] No command detected, resetting silently.");
+      resetToIdle()
       return
     }
 
@@ -339,7 +343,7 @@ export const useVoice = (onWakeWord, setOrbState, setStatus, addMessage, session
   }, [speak, resetToIdle, setOrbState, setStatus, setLiveTranscript, setShowActivationFlash])
 
   // ── PROCESS COMMAND (FIXED WITH ALWAYS-RESET) ────────────────
-  const processCommand = async (transcript) => {
+  const processCommand = async (transcript, source = 'voice') => {
     if (setOrbState) setOrbState('processing')
     if (setStatus) setStatus('THINKING')
     setIsProcessing(true)
@@ -359,7 +363,7 @@ export const useVoice = (onWakeWord, setOrbState, setStatus, addMessage, session
         body: JSON.stringify({
           message:    transcript,
           session_id: actualSessionId,
-          source:     'voice'
+          source:     source
         })
       })
 

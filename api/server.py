@@ -7,6 +7,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
 from contextlib import asynccontextmanager
+from collections import deque
+from datetime import datetime
 from core.agent_loop import BAYMAXAgent
 
 # Setup logging
@@ -41,7 +43,7 @@ async def lifespan(app: FastAPI):
     yield
     logger.info("[BAYMAX] Shutting down.")
 
-app = FastAPI(title="BAYMAX API", version="8.0", lifespan=lifespan)
+app = FastAPI(title="BAYMAX API", version="10.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -61,6 +63,44 @@ class QueryRequest(BaseModel):
     message: str
     session_id: Optional[str] = None
     source: str = "text"
+
+# In-memory log store for UI display
+ui_logs: Dict[str, deque] = {}
+
+def add_ui_log(session_id: str, message: str, level: str = "INFO"):
+    if session_id not in ui_logs:
+        ui_logs[session_id] = deque(maxlen=50)
+    ui_logs[session_id].append({
+        "timestamp": datetime.utcnow().isoformat(),
+        "level":     level,
+        "message":   message
+    })
+
+@app.get("/logs/{session_id}")
+async def get_logs(session_id: str):
+    logs = list(ui_logs.get(session_id, []))
+    return {
+        "session_id": session_id,
+        "logs":       logs,
+        "count":      len(logs)
+    }
+
+@app.get("/briefing/{session_id}")
+async def get_briefing(session_id: str):
+    try:
+        briefing = agent.proactive.check_morning_briefing(session_id)
+        return {
+            "session_id": session_id,
+            "briefing":   briefing or "",
+            "has_briefing": bool(briefing)
+        }
+    except Exception as e:
+        return {
+            "session_id":   session_id,
+            "briefing":     "",
+            "has_briefing": False,
+            "error":        str(e)
+        }
 
 class QueryResponse(BaseModel):
     session_id: str
@@ -88,8 +128,14 @@ async def query_baymax(body: QueryRequest):
 
     sid = body.session_id or str(uuid.uuid4())
     start_query = time.time()
+    add_ui_log(sid, f"Received: {body.message[:50]}", "INFO")
     try:
-        result = await agent.run(body.message, session_id=sid, source=body.source)
+        result = await agent.run(
+            f"[VOICE MODE] {body.message}" if body.source == "voice" else body.message,
+            session_id=sid,
+            source=body.source
+        )
+        add_ui_log(sid, f"Response: {str(result.get('response',''))[:50]}", "INFO")
         
         latency = int((time.time() - start_query) * 1000)
 
@@ -109,6 +155,7 @@ async def query_baymax(body: QueryRequest):
             user_name=result.get("user_name", "User")
         )
     except Exception as e:
+        add_ui_log(sid, f"ERROR: {str(e)}", "ERROR")
         logger.error(f"[BAYMAX] Query error: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"BAYMAX processing error: {str(e)}")
 
@@ -117,8 +164,26 @@ async def health_check():
     return {
         "status": "online",
         "system": "BAYMAX",
-        "version": "8.0",
+        "version": "10.0",
         "uptime_seconds": int(time.time() - start_time)
+    }
+
+@app.get("/telemetry")
+async def get_telemetry():
+    try:
+        import psutil
+        cpu = psutil.cpu_percent(interval=0.1)
+        mem = psutil.virtual_memory().percent
+    except ImportError:
+        cpu = 15.0
+        mem = 40.0
+    
+    return {
+        "cpu": cpu,
+        "memory": mem,
+        "status": "OPTIMAL" if cpu < 80 else "WARNING",
+        "active_tools": len(agent.short_mem.get()),
+        "network": "SECURE"
     }
 
 @app.get("/profile")

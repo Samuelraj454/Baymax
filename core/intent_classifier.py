@@ -2,90 +2,45 @@ import re
 from typing import Tuple, Dict
 
 INTENT_PATTERNS = {
-    "music": [
-      r"play\b", r"song\b", r"music\b", r"youtube\b",
-      r"spotify\b", r"gaana\b", r"jiosaavn\b",
-      r"put on\b", r"play.*on"
-    ],
-    "system": [
-      r"open\b", r"launch\b", r"start\b", r"close\b",
-      r"chrome\b", r"firefox\b", r"app\b",
-      r"volume\b", r"mute\b", r"screenshot\b",
-      r"lock\b", r"calculator\b"
-    ],
-    "weather": [
-      r"weather\b", r"temperature\b", r"rain\b",
-      r"sunny\b", r"forecast\b", r"hot\b", r"cold\b",
-      r"climate\b", r"humid\b"
-    ],
-    "reminder": [
-      r"remind\b", r"reminder\b", r"alert\b",
-      r"don.t.*forget", r"notify\b", r"alarm\b"
-    ],
-    "email": [
-        r"email\b", r"send.*email", r"email.*to", r"mail.*to", r"write.*email",
-        r"compose.*email", r"check.*inbox", r"read.*mail"
-    ],
-    "whatsapp": [
-        r"whatsapp", r"send.*message.*to", r"message.*on whatsapp",
-        r"text.*on whatsapp", r"wa.*to"
-    ],
-    "sms": [
-        r"send.*sms", r"text message.*to", r"sms.*to"
-    ],
-    "calendar": [
-        r"schedule", r"book.*meeting", r"add.*calendar", r"what.*today",
-        r"my schedule", r"upcoming.*events", r"meeting.*at"
-    ],
-    "notes": [
-        r"note this", r"note down", r"save this", r"remember this",
-        r"write.*down", r"jot.*down", r"make.*note"
-    ],
-    "translate": [
-        r"translate", r"how do you say", r"in.*language", r"meaning in"
-    ],
-    "calculator": [
-        r"calculate", r"what is.*\d", r"how much is", r"percent",
-        r"equals", r"\d+.*\+.*\d+", r"\d+.*\-.*\d+", r"sum of"
-    ],
-    "contacts": [
-        r"add.*contact", r"save.*number", r"find.*contact",
-        r"what.*number", r"contact.*for"
-    ],
-    "web_search": [
-        r"search", r"look up", r"find.*on google", r"google for", r"who is", r"what is"
-    ],
-    "conversation": [
-        r"hey", r"hi", r"how are you", r"who are you", r"what can you"
-    ]
+    "music":      [r"play\b",r"song\b",r"music\b",r"youtube\b",
+                   r"spotify\b",r"put on\b",r"listen\b"],
+    "system":     [r"open\b",r"launch\b",r"chrome\b",r"firefox\b",
+                   r"volume\b",r"mute\b",r"screenshot\b",r"lock\b",
+                   r"calculator\b",r"close\b"],
+    "weather":    [r"weather\b",r"temperature\b",r"rain\b",
+                   r"hot\b",r"cold\b",r"forecast\b",r"climate\b"],
+    "reminder":   [r"remind\b",r"reminder\b",r"alert\b",
+                   r"don.t forget",r"notify\b",r"alarm\b"],
+    "email":      [r"email\b",r"mail\b",r"inbox\b",r"compose\b"],
+    "whatsapp":   [r"whatsapp\b",r"whats.?app\b",r"send.*message"],
+    "news":       [r"news\b",r"headline\b",r"happening\b",r"latest\b"],
+    "calendar":   [r"schedul\b",r"meeting\b",r"calendar\b",
+                   r"appointment\b",r"book\b"],
+    "notes":      [r"note\b",r"write.*down",r"remember this",
+                   r"save this",r"jot\b"],
+    "translate":  [r"translat\b",r"how.*say\b",r"in.*language\b"],
+    "math":       [r"\d+.*[\+\-\*\/].*\d+",r"calculat\b",
+                   r"percent\b",r"how much"],
+    "web_search": [r"search\b",r"google\b",r"look up\b",r"find\b"],
+    "time_date":  [r"\btime\b",r"\bdate\b",r"what.*day\b",
+                   r"what.*time\b"],
+    "contacts":   [r"contact\b",r"add.*number",r"save.*number",
+                   r"find.*contact"],
 }
 
 class IntentClassifier:
     def classify(self, text: str) -> str:
-        if not text:
-            return "conversation"
-
-        text_lower = text.lower().strip()
-
-        # Score-based classification — most specific first
-        scores = {}
-
+        if not text: return "conversation"
+        t = text.lower().strip()
+        best_intent = "conversation"
+        best_score  = 0
         for intent, patterns in INTENT_PATTERNS.items():
-            score = 0
-            for pattern in patterns:
-                try:
-                    if re.search(pattern, text_lower):
-                        score += 1
-                except re.error:
-                    continue
-            if score > 0:
-                scores[intent] = score
-
-        if not scores:
-            return "conversation"
-
-        # Return intent with highest score
-        return max(scores, key=scores.get)
+            score = sum(1 for p in patterns
+                        if re.search(p, t, re.IGNORECASE))
+            if score > best_score:
+                best_score  = score
+                best_intent = intent
+        return best_intent
 
     def needs_clarification(self, text: str, intent: str) -> Tuple[bool, str]:
         """Check if intent requires missing information."""
@@ -117,7 +72,7 @@ class IntentClassifier:
         text = text.lower()
         matches = 0
         for pattern in INTENT_PATTERNS[intent]:
-            if re.search(pattern, text):
+            if re.search(pattern, text, re.IGNORECASE):
                 matches += 1
         
         return matches / len(INTENT_PATTERNS[intent])
