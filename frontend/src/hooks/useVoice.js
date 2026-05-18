@@ -478,24 +478,26 @@ export const useVoice = (onWakeWord, setOrbState, setStatus, addMessage, session
     // Check mic permission first
     navigator.mediaDevices?.getUserMedia({ audio: true })
       .then(() => {
-        console.log('[BAYMAX] Mic permission granted')
+        console.log('[BAYMAX] Mic permission granted');
+        setMicError('');
+        startWakeWordListener(voiceSettings.language || 'en-IN');
       })
       .catch((err) => {
-        console.error('[BAYMAX] Mic denied:', err)
+        console.error('[BAYMAX] Mic denied:', err);
         setMicError(
           'Microphone access denied. ' +
           'Click the camera icon in Chrome address bar → Allow microphone.'
-        )
-      })
+        );
+      });
 
     return () => {
       // Cleanup on unmount
       if (wakeRecRef.current) {
         try { wakeRecRef.current.abort() } catch(e) {}
       }
-      window.speechSynthesis.cancel()
-    }
-  }, [])
+      window.speechSynthesis.cancel();
+    };
+  }, [startWakeWordListener, voiceSettings.language])
 
   return {
     isListening,

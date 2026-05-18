@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, Settings, User, Globe, Volume2, Save, Info, Music, Shield } from 'lucide-react';
+import { X, Settings, User, Globe, Volume2, Save, Info, Music, Shield, Cpu } from 'lucide-react';
 import { API_BASE_URL } from '../config';
 
 const useDebounce = (value, delay = 800) => {
@@ -352,6 +352,29 @@ export default function SettingsModal({ isOpen, onClose, sessionId, onVoiceSetti
                 </select>
               </div>
 
+            </div>
+
+            {/* Connection Endpoint Switcher */}
+            <div className="flex-col" style={{ gap: '16px', background: 'rgba(255,255,255,0.03)', padding: '20px', borderRadius: '12px' }}>
+              <h3 className="flex items-center text-cyan" style={{ gap: '8px', margin: 0, fontSize: '16px' }}><Cpu size={18}/> Connection Endpoint</h3>
+              <div className="flex-col" style={{ gap: '8px' }}>
+                <label style={{ fontSize: '12px', opacity: 0.8 }}>Active API Backend</label>
+                <select 
+                  className="glass-panel"
+                  value={localStorage.getItem('__active_api_url') || 'https://baymax-3.onrender.com'}
+                  onChange={e => {
+                    localStorage.setItem('__active_api_url', e.target.value);
+                    window.location.reload();
+                  }}
+                  style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', padding: '10px', color: 'white', borderRadius: '6px' }}
+                >
+                  <option value="https://baymax-3.onrender.com">Cloud Production (Render Server)</option>
+                  <option value="http://localhost:8000">Localhost Machine (Runs Local Apps)</option>
+                </select>
+                <span style={{ fontSize: '11px', opacity: 0.6, marginTop: '4px', lineHeight: '1.4' }}>
+                  Select <b>Localhost Machine</b> to launch your native desktop apps. Make sure <b>start.bat</b> is active on your PC.
+                </span>
+              </div>
             </div>
 
             {/* System Info */}
