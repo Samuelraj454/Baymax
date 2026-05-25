@@ -1,17 +1,18 @@
 import os
 import json
 import re
-import httpx
 import asyncio
 from typing import List, Dict, Any, Optional
+from openai import AsyncOpenAI, RateLimitError, APIError
 from .prompts import BAYMAX_SYSTEM_PROMPT
 from loguru import logger
 
 class LLMCore:
     def __init__(self, memory_context: List[Dict] = None, profile_context: str = ""):
-        self.api_key = os.getenv("GROQ_API_KEY")
-        self.primary_model = "llama-3.3-70b-versatile"
-        self.fallback_model = "llama-3.1-8b-instant"
+        api_key = os.getenv("OPENAI_API_KEY")
+        self.client = AsyncOpenAI(api_key=api_key) if api_key else None
+        self.primary_model = os.getenv("OPENAI_PRIMARY_MODEL", "gpt-4o")
+        self.fallback_model = os.getenv("OPENAI_FALLBACK_MODEL", "gpt-4o-mini")
         self.memory = memory_context or []
         self.profile_context = profile_context
 
@@ -28,9 +29,8 @@ class LLMCore:
         if self.profile_context:
             system_with_profile += f"\n\n━━━ USER PROFILE ━━━\n{self.profile_context}\n━━━━━━━━━━━━━━━━━━━━"
             
-        # Build message history
         messages = [{"role": "system", "content": system_with_profile}]
-        for m in self.memory[-10:]: # Last 10 turns
+        for m in self.memory[-10:]:
             messages.append(m)
         messages.append({"role": "user", "content": user_input})
 
@@ -42,24 +42,19 @@ class LLMCore:
         is_task = any(w in user_input.lower() for w in task_words)
         temp = 0.1 if is_task else 0.75
 
-        # Dynamic task routing: route simple/tool commands to ultra-fast 8B model for sub-200ms responses
         target_model = self.fallback_model if is_task else self.primary_model
 
-        # Strategy 1 & 2: Primary call with temperature control
         raw_response = await self._call_llm(messages, target_model, temperature=temp)
         logger.debug(f"Primary LLM ({target_model}) Response: {raw_response}")
         
-        # Strategy 3: Extraction Waterfall
         data = self._extract_json(raw_response)
         
         if data:
             return data
         
-        # Strategy 4: Two-model fallback (only if we didn't already try the fallback model)
         if target_model != self.fallback_model:
-            logger.warning(f"JSON Parse or rate limit occurred on {target_model}. Instantly retrying with fallback model ({self.fallback_model})...")
+            logger.warning(f"JSON parse failed on {target_model}. Retrying with {self.fallback_model}...")
             
-            # If raw_response is empty, don't include it in history
             retry_messages = [{"role": "system", "content": system_with_profile}]
             for m in self.memory[-5:]:
                  retry_messages.append(m)
@@ -73,7 +68,6 @@ class LLMCore:
             if data:
                 return data
             
-        # Strategy 5: Failure fallback
         return {"needs_tools": False, "response": "I'm having trouble formatting my thoughts as JSON right now. Let's try again."}
 
     def _extract_json(self, raw: str) -> Optional[dict]:
@@ -82,23 +76,19 @@ class LLMCore:
         
         text = raw.strip()
         
-        # Try 1: Direct parse
         try:
             return json.loads(text)
         except:
             pass
  
-        # Try 2: Handle Markdown blocks
         try:
             if "```" in text:
-                # Find content between ```json and ``` or just ``` and ```
                 json_match = re.search(r'```(?:json)?\s*(\{.*?\})\s*```', text, re.DOTALL)
                 if json_match:
                     return json.loads(json_match.group(1))
         except:
             pass
  
-        # Try 3: Regex for outermost braces
         try:
             match = re.search(r'(\{.*\})', text, re.DOTALL)
             if match:
@@ -109,42 +99,38 @@ class LLMCore:
         return None
 
     async def _call_llm(self, messages: List[Dict], model: str, temperature: float = 0.1) -> str:
-        """Generic Groq API caller with retry for rate limits."""
-        url = "https://api.groq.com/openai/v1/chat/completions"
-        headers = {
-            "Authorization": f"Bearer {self.api_key}",
-            "Content-Type": "application/json"
-        }
-        payload = {
-            "model": model,
-            "messages": messages,
-            "temperature": temperature,
-            "max_tokens": 1024,
-            "response_format": {"type": "json_object"}
-        }
-        
-        async with httpx.AsyncClient(timeout=30.0) as client:
-            for attempt in range(3):
-                try:
-                    response = await client.post(url, headers=headers, json=payload)
-                    if response.status_code == 200:
-                        return response.json()["choices"][0]["message"]["content"]
-                    
-                    if response.status_code == 429:
-                        # Fail-fast on the primary 70B model to trigger fallback immediately without waiting
-                        if model == self.primary_model:
-                            logger.warning(f"Primary model ({model}) rate limited (429). Bypassing wait to fallback instantly.")
-                            return ""
-                        
-                        wait = (attempt + 1) * 2
-                        logger.warning(f"Rate limited (429). Retrying in {wait}s...")
-                        await asyncio.sleep(wait)
-                        continue
-                        
-                    logger.error(f"Groq API Error: {response.status_code} - {response.text}")
+        """OpenAI chat completions with retry for rate limits."""
+        if not self.client:
+            logger.error("OPENAI_API_KEY not set")
+            return ""
+
+        for attempt in range(3):
+            try:
+                response = await self.client.chat.completions.create(
+                    model=model,
+                    messages=messages,
+                    temperature=temperature,
+                    max_tokens=1024,
+                    response_format={"type": "json_object"},
+                )
+                return response.choices[0].message.content or ""
+
+            except RateLimitError:
+                if model == self.primary_model:
+                    logger.warning(f"Primary model ({model}) rate limited. Falling back immediately.")
                     return ""
-                except Exception as e:
-                    logger.error(f"LLM Call failed: {e}")
-                    if attempt == 2: return ""
-                    await asyncio.sleep(1)
+                wait = (attempt + 1) * 2
+                logger.warning(f"Rate limited (429). Retrying in {wait}s...")
+                await asyncio.sleep(wait)
+
+            except APIError as e:
+                logger.error(f"OpenAI API Error: {e}")
+                return ""
+
+            except Exception as e:
+                logger.error(f"LLM Call failed: {e}")
+                if attempt == 2:
+                    return ""
+                await asyncio.sleep(1)
+
         return ""

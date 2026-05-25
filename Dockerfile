@@ -22,4 +22,4 @@ ENV PYTHONPATH=/app
 
 EXPOSE 8000
 
-CMD ["python", "-m", "api.server"]
+CMD ["sh", "-c", "uvicorn api.server:app --host 0.0.0.0 --port ${PORT:-8000}"]

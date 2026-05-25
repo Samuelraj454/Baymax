@@ -3,10 +3,10 @@ import subprocess, sys, os, time, threading, webbrowser
 def check_env():
     from dotenv import load_dotenv
     load_dotenv()
-    if not os.getenv("GROQ_API_KEY"):
-        print("\n[BAYMAX] ERROR: GROQ_API_KEY missing from .env")
-        print("[BAYMAX] Get your free key at console.groq.com")
-        print("[BAYMAX] Add it to .env as: GROQ_API_KEY=your_key\n")
+    if not os.getenv("OPENAI_API_KEY"):
+        print("\n[BAYMAX] ERROR: OPENAI_API_KEY missing from .env")
+        print("[BAYMAX] Get your key at platform.openai.com/api-keys")
+        print("[BAYMAX] Add it to .env as: OPENAI_API_KEY=your_key\n")
         sys.exit(1)
     print("[BAYMAX] Environment OK.")
 

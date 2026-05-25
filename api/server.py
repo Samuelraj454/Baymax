@@ -33,7 +33,7 @@ VOICE_CATALOG = {
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    required_vars = ["GROQ_API_KEY"]
+    required_vars = ["OPENAI_API_KEY"]
     missing = [v for v in required_vars if not os.getenv(v)]
     if missing:
         logger.error(f"[BAYMAX ERROR] Missing env vars: {missing}")
@@ -45,9 +45,10 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="BAYMAX API", version="11.0", lifespan=lifespan)
 
+_cors_origins = os.getenv("CORS_ORIGINS", "*").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_cors_origins if _cors_origins != ["*"] else ["*"],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],

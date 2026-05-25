@@ -1,0 +1,24 @@
+# Render Blueprint — backend API (https://dashboard.render.com)
+# Connect repo: github.com/Samuelraj454/Baymax
+# After deploy, set OPENAI_API_KEY in Render → Environment.
+
+services:
+  - type: web
+    name: baymax-api
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api.server:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_PRIMARY_MODEL
+        value: gpt-4o
+      - key: OPENAI_FALLBACK_MODEL
+        value: gpt-4o-mini
+      - key: RENDER
+        value: "true"

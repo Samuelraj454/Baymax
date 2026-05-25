@@ -1,5 +1,8 @@
+// Build-time default (Vercel: set VITE_API_URL to your Render backend URL)
+export const CLOUD_API_URL = import.meta.env.VITE_API_URL || 'https://baymax-3.onrender.com';
+
 // Dynamically resolve backend endpoint: local vs. cloud fallback
-const defaultBackend = import.meta.env.VITE_API_URL || 'https://baymax-3.onrender.com';
+const defaultBackend = CLOUD_API_URL;
 let activeUrl = localStorage.getItem('__active_api_url') || defaultBackend;
 
 // If we are browsing on a remote host (like Render), try to detect a running local backend

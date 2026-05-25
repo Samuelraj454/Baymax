@@ -2,10 +2,10 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-# LLM
-GROQ_API_KEY    = os.getenv("GROQ_API_KEY")
-PRIMARY_MODEL   = "llama-3.3-70b-versatile"
-FALLBACK_MODEL  = "gemma2-9b-it"
+# LLM (OpenAI — platform.openai.com)
+OPENAI_API_KEY       = os.getenv("OPENAI_API_KEY")
+OPENAI_PRIMARY_MODEL = os.getenv("OPENAI_PRIMARY_MODEL", "gpt-4o")
+OPENAI_FALLBACK_MODEL = os.getenv("OPENAI_FALLBACK_MODEL", "gpt-4o-mini")
 MAX_TOKENS      = 1024
 MAX_RETRIES     = 3
 
